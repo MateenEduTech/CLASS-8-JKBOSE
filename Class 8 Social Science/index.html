@@ -1,0 +1,3305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#1a1a2e">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Class 8 SST">
+<meta name="description" content="JKBOSE Class 8 Social Science Learning App by Mateen Yousuf">
+<title>Class 8 Social Science Learning App</title>
+
+<style>
+/* ============================================================
+   DESIGN SYSTEM - Deep Navy + Amber + Teal Academic Theme
+   ============================================================ */
+:root {
+  --navy: #0f172a;
+  --navy2: #1e293b;
+  --navy3: #334155;
+  --amber: #f59e0b;
+  --amber2: #fbbf24;
+  --teal: #0d9488;
+  --teal2: #14b8a6;
+  --rose: #e11d48;
+  --indigo: #4f46e5;
+  --emerald: #059669;
+  --sky: #0284c7;
+  --white: #f8fafc;
+  --muted: #94a3b8;
+  --card: rgba(30,41,59,0.9);
+  --glass: rgba(255,255,255,0.07);
+  --shadow: 0 20px 60px rgba(0,0,0,0.5);
+  --radius: 16px;
+  --radius-sm: 10px;
+  font-size: 16px;
+}
+
+/* Dark mode vars */
+body.light-mode {
+  --navy: #f0f4f8;
+  --navy2: #e2e8f0;
+  --navy3: #cbd5e1;
+  --white: #0f172a;
+  --muted: #475569;
+  --card: rgba(241,245,249,0.95);
+  --glass: rgba(0,0,0,0.05);
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Georgia', 'Times New Roman', serif;
+  background: var(--navy);
+  color: var(--white);
+  min-height: 100vh;
+  overflow-x: hidden;
+  transition: background 0.3s, color 0.3s;
+}
+
+/* ============================================================
+   SCREENS
+   ============================================================ */
+.screen { display: none; min-height: 100vh; animation: screenIn 0.4s ease; }
+.screen.active { display: block; }
+
+@keyframes screenIn {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ============================================================
+   TITLE SCREEN
+   ============================================================ */
+#title-screen {
+  background: linear-gradient(135deg, #0f172a 0%, #1a1a3e 30%, #0d1f3c 60%, #0f172a 100%);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  padding: 24px 20px;
+  text-align: center;
+}
+
+/* Animated background stars */
+.star-field {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+
+.star {
+  position: absolute;
+  background: white;
+  border-radius: 50%;
+  animation: starTwinkle ease infinite;
+}
+
+@keyframes starTwinkle {
+  0%, 100% { opacity: 0.2; transform: scale(1); }
+  50% { opacity: 0.9; transform: scale(1.5); }
+}
+
+/* Floating globe */
+.globe-float {
+  position: absolute;
+  font-size: 4rem;
+  opacity: 0.08;
+  animation: globeFloat linear infinite;
+  pointer-events: none;
+}
+
+@keyframes globeFloat {
+  0% { transform: translateY(0) rotate(0deg); opacity: 0.06; }
+  50% { transform: translateY(-40px) rotate(180deg); opacity: 0.12; }
+  100% { transform: translateY(0) rotate(360deg); opacity: 0.06; }
+}
+
+/* Animated border ring */
+.title-ring {
+  position: absolute;
+  border-radius: 50%;
+  border: 1px solid rgba(245,158,11,0.2);
+  animation: ringPulse 4s ease infinite;
+}
+
+@keyframes ringPulse {
+  0%, 100% { transform: scale(1); opacity: 0.3; }
+  50% { transform: scale(1.08); opacity: 0.6; }
+}
+
+.title-tag {
+  background: linear-gradient(90deg, var(--amber), var(--teal));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  margin-bottom: 12px;
+  font-family: 'Courier New', monospace;
+}
+
+.title-main {
+  font-size: clamp(1.8rem, 7vw, 3rem);
+  font-weight: 900;
+  color: var(--white);
+  line-height: 1.15;
+  margin-bottom: 6px;
+  text-shadow: 0 0 60px rgba(245,158,11,0.4);
+}
+
+.title-main span {
+  background: linear-gradient(135deg, var(--amber), var(--amber2));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.title-sub {
+  font-size: 0.9rem;
+  color: var(--muted);
+  letter-spacing: 2px;
+  font-family: 'Courier New', monospace;
+  margin-bottom: 28px;
+}
+
+/* Author photo */
+.author-ring-wrap {
+  position: relative;
+  width: 120px;
+  height: 120px;
+  margin: 0 auto 14px;
+}
+
+.author-ring-outer {
+  position: absolute;
+  inset: -5px;
+  border-radius: 50%;
+  background: conic-gradient(var(--amber), var(--teal), var(--indigo), var(--amber));
+  animation: spinRing 4s linear infinite;
+}
+
+@keyframes spinRing {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.author-ring-inner {
+  position: absolute;
+  inset: 3px;
+  border-radius: 50%;
+  background: var(--navy);
+  z-index: 1;
+  overflow: hidden;
+}
+
+.author-ring-inner img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: top center;
+}
+
+.author-name-title {
+  font-size: 1.2rem;
+  font-weight: 700;
+  color: var(--amber);
+}
+
+.author-desig {
+  font-size: 0.8rem;
+  color: var(--muted);
+  margin-top: 4px;
+  line-height: 1.5;
+  font-family: 'Courier New', monospace;
+}
+
+/* Subject badges */
+.subject-badges {
+  display: flex;
+  gap: 8px;
+  justify-content: center;
+  margin: 18px 0;
+  flex-wrap: wrap;
+}
+
+.subj-badge {
+  padding: 6px 14px;
+  border-radius: 30px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 1px;
+  font-family: 'Courier New', monospace;
+  border: 1px solid;
+}
+
+.badge-hist { background: rgba(225,29,72,0.15); border-color: rgba(225,29,72,0.4); color: #fb7185; }
+.badge-geo { background: rgba(5,150,105,0.15); border-color: rgba(5,150,105,0.4); color: #34d399; }
+.badge-civ { background: rgba(79,70,229,0.15); border-color: rgba(79,70,229,0.4); color: #818cf8; }
+
+.start-btn {
+  background: linear-gradient(135deg, var(--amber), #d97706);
+  color: #0f172a;
+  border: none;
+  border-radius: 50px;
+  padding: 15px 44px;
+  font-size: 1rem;
+  font-weight: 800;
+  cursor: pointer;
+  letter-spacing: 1px;
+  font-family: 'Courier New', monospace;
+  box-shadow: 0 8px 30px rgba(245,158,11,0.4);
+  transition: transform 0.2s, box-shadow 0.2s;
+  animation: btnPulse 2.5s ease infinite;
+  margin-top: 8px;
+}
+
+@keyframes btnPulse {
+  0%, 100% { box-shadow: 0 8px 30px rgba(245,158,11,0.4); }
+  50% { box-shadow: 0 12px 50px rgba(245,158,11,0.7); }
+}
+
+.start-btn:hover { transform: translateY(-3px); }
+
+/* ============================================================
+   TOP BAR
+   ============================================================ */
+.top-bar {
+  background: rgba(15,23,42,0.95);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(245,158,11,0.2);
+  padding: 12px 16px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.back-btn {
+  background: rgba(245,158,11,0.15);
+  border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 10px;
+  width: 38px;
+  height: 38px;
+  color: var(--amber);
+  font-size: 1.1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+  flex-shrink: 0;
+}
+
+.back-btn:hover { background: rgba(245,158,11,0.25); }
+
+.tb-title {
+  flex: 1;
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--white);
+  font-family: 'Courier New', monospace;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.tb-right {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.tb-stars {
+  background: rgba(245,158,11,0.15);
+  border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 20px;
+  padding: 4px 10px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--amber);
+}
+
+.dark-toggle {
+  background: rgba(255,255,255,0.08);
+  border: 1px solid rgba(255,255,255,0.15);
+  border-radius: 8px;
+  width: 32px;
+  height: 32px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* ============================================================
+   HOME SCREEN
+   ============================================================ */
+#home-screen {
+  background: var(--navy);
+  min-height: 100vh;
+}
+
+.home-hero {
+  background: linear-gradient(135deg, #1e293b 0%, #0f172a 100%);
+  padding: 24px 20px 32px;
+  border-bottom: 1px solid rgba(245,158,11,0.15);
+  position: relative;
+  overflow: hidden;
+}
+
+.home-hero::before {
+  content: '🌍';
+  position: absolute;
+  right: -20px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 8rem;
+  opacity: 0.05;
+}
+
+.hero-label {
+  font-size: 0.7rem;
+  color: var(--amber);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-family: 'Courier New', monospace;
+  margin-bottom: 4px;
+}
+
+.hero-h1 {
+  font-size: 1.5rem;
+  font-weight: 900;
+  color: var(--white);
+  margin-bottom: 14px;
+}
+
+.hero-h1 span { color: var(--amber); }
+
+.progress-wrap {
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  height: 8px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--amber), var(--teal));
+  border-radius: 10px;
+  transition: width 0.8s ease;
+}
+
+.progress-label {
+  font-size: 0.75rem;
+  color: var(--muted);
+  font-family: 'Courier New', monospace;
+}
+
+.section-hd {
+  font-size: 0.7rem;
+  color: var(--amber);
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  font-family: 'Courier New', monospace;
+  padding: 20px 18px 10px;
+}
+
+.nav-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  padding: 0 14px;
+}
+
+.nav-card {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  padding: 18px 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: transform 0.2s, border-color 0.2s;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.nav-card:hover { transform: translateY(-3px); border-color: rgba(245,158,11,0.4); }
+.nav-card:active { transform: scale(0.97); }
+
+.nav-card .nc-icon { font-size: 2rem; }
+.nav-card .nc-label { font-size: 0.85rem; font-weight: 700; color: var(--white); }
+.nav-card .nc-sub { font-size: 0.7rem; color: var(--muted); font-family: 'Courier New', monospace; }
+
+.stats-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  padding: 0 14px 24px;
+}
+
+.stat-box {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-sm);
+  padding: 14px 8px;
+  text-align: center;
+}
+
+.stat-num {
+  font-size: 1.4rem;
+  font-weight: 900;
+  color: var(--amber);
+  display: block;
+}
+
+.stat-lbl {
+  font-size: 0.65rem;
+  color: var(--muted);
+  font-family: 'Courier New', monospace;
+  margin-top: 2px;
+}
+
+/* ============================================================
+   CHAPTERS SCREEN
+   ============================================================ */
+#chapters-screen { background: var(--navy); }
+
+.filter-row {
+  display: flex;
+  gap: 8px;
+  padding: 12px 14px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.filter-row::-webkit-scrollbar { display: none; }
+
+.filter-btn {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 20px;
+  padding: 7px 16px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: 'Courier New', monospace;
+  transition: all 0.2s;
+}
+
+.filter-btn.active, .filter-btn:hover {
+  background: rgba(245,158,11,0.2);
+  border-color: rgba(245,158,11,0.5);
+  color: var(--amber);
+}
+
+.filter-btn.hist-f.active { background: rgba(225,29,72,0.2); border-color: var(--rose); color: #fb7185; }
+.filter-btn.geo-f.active { background: rgba(5,150,105,0.2); border-color: var(--emerald); color: #34d399; }
+.filter-btn.civ-f.active { background: rgba(79,70,229,0.2); border-color: var(--indigo); color: #818cf8; }
+
+.chapter-list { padding: 0 14px 24px; }
+
+.chapter-item {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 10px;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  transition: transform 0.2s, border-color 0.2s;
+  position: relative;
+  overflow: hidden;
+}
+
+.chapter-item::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  border-radius: 3px 0 0 3px;
+}
+
+.chapter-item.history::before { background: var(--rose); }
+.chapter-item.geography::before { background: var(--emerald); }
+.chapter-item.civics::before { background: var(--indigo); }
+
+.chapter-item:hover { transform: translateX(4px); }
+
+.ch-icon-wrap {
+  width: 48px;
+  height: 48px;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  flex-shrink: 0;
+}
+
+.history .ch-icon-wrap { background: rgba(225,29,72,0.15); }
+.geography .ch-icon-wrap { background: rgba(5,150,105,0.15); }
+.civics .ch-icon-wrap { background: rgba(79,70,229,0.15); }
+
+.ch-info { flex: 1; }
+
+.ch-num {
+  font-size: 0.65rem;
+  font-family: 'Courier New', monospace;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  margin-bottom: 3px;
+}
+
+.history .ch-num { color: #fb7185; }
+.geography .ch-num { color: #34d399; }
+.civics .ch-num { color: #818cf8; }
+
+.ch-name {
+  font-size: 0.9rem;
+  font-weight: 700;
+  color: var(--white);
+  line-height: 1.3;
+}
+
+.ch-done-badge {
+  font-size: 0.65rem;
+  font-weight: 700;
+  padding: 3px 8px;
+  border-radius: 10px;
+  font-family: 'Courier New', monospace;
+}
+
+.done-badge { background: rgba(5,150,105,0.2); color: #34d399; border: 1px solid rgba(5,150,105,0.4); }
+.pending-badge { background: rgba(148,163,184,0.1); color: var(--muted); border: 1px solid rgba(148,163,184,0.2); }
+
+/* ============================================================
+   CHAPTER DETAIL SCREEN
+   ============================================================ */
+#chapter-screen { background: var(--navy); }
+
+.tab-bar {
+  display: flex;
+  gap: 0;
+  overflow-x: auto;
+  scrollbar-width: none;
+  background: rgba(15,23,42,0.8);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
+}
+
+.tab-bar::-webkit-scrollbar { display: none; }
+
+.tab-btn {
+  background: none;
+  border: none;
+  border-bottom: 2px solid transparent;
+  padding: 12px 16px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--muted);
+  cursor: pointer;
+  white-space: nowrap;
+  font-family: 'Courier New', monospace;
+  transition: all 0.2s;
+  letter-spacing: 0.5px;
+}
+
+.tab-btn.active {
+  color: var(--amber);
+  border-bottom-color: var(--amber);
+}
+
+.tab-content { display: none; padding: 16px; animation: screenIn 0.3s ease; }
+.tab-content.active { display: block; }
+
+/* Cards */
+.concept-card {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius);
+  padding: 20px;
+  margin-bottom: 14px;
+}
+
+.concept-card h3 {
+  font-size: 1rem;
+  font-weight: 800;
+  color: var(--amber);
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.concept-card p {
+  font-size: 0.88rem;
+  line-height: 1.7;
+  color: rgba(248,250,252,0.8);
+}
+
+.key-points {
+  margin-top: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.kp-item {
+  display: flex;
+  gap: 10px;
+  align-items: flex-start;
+  font-size: 0.85rem;
+  line-height: 1.5;
+  color: rgba(248,250,252,0.75);
+}
+
+.kp-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--amber);
+  margin-top: 6px;
+  flex-shrink: 0;
+}
+
+.info-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 14px;
+}
+
+.info-box {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  text-align: center;
+}
+
+.info-box .ib-icon { font-size: 1.8rem; display: block; margin-bottom: 6px; }
+.info-box .ib-val { font-size: 1rem; font-weight: 800; color: var(--amber); }
+.info-box .ib-lbl { font-size: 0.7rem; color: var(--muted); font-family: 'Courier New', monospace; margin-top: 2px; }
+
+/* Timeline */
+.timeline {
+  position: relative;
+  padding-left: 24px;
+  margin: 12px 0;
+}
+
+.timeline::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--amber), var(--teal));
+  border-radius: 2px;
+}
+
+.tl-item {
+  position: relative;
+  padding: 0 0 20px 16px;
+}
+
+.tl-dot {
+  position: absolute;
+  left: -18px;
+  top: 4px;
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--amber);
+  border: 2px solid var(--navy);
+  box-shadow: 0 0 10px rgba(245,158,11,0.5);
+}
+
+.tl-year {
+  font-size: 0.7rem;
+  font-weight: 700;
+  color: var(--amber);
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+  margin-bottom: 3px;
+}
+
+.tl-event {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--white);
+  margin-bottom: 3px;
+}
+
+.tl-desc {
+  font-size: 0.78rem;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Map SVG */
+.map-container {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius);
+  padding: 16px;
+  margin-bottom: 14px;
+  overflow: hidden;
+}
+
+.map-title {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--amber);
+  letter-spacing: 2px;
+  font-family: 'Courier New', monospace;
+  margin-bottom: 12px;
+}
+
+/* Flashcards */
+.fc-scene {
+  perspective: 1000px;
+  width: 100%;
+  max-width: 340px;
+  height: 200px;
+  margin: 16px auto;
+  cursor: pointer;
+}
+
+.fc-card {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.6s cubic-bezier(0.4,0,0.2,1);
+}
+
+.fc-card.flipped { transform: rotateY(180deg); }
+
+.fc-face {
+  position: absolute;
+  inset: 0;
+  backface-visibility: hidden;
+  border-radius: var(--radius);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+}
+
+.fc-front {
+  background: linear-gradient(135deg, #1e293b, #0f172a);
+  border: 1px solid rgba(245,158,11,0.3);
+}
+
+.fc-back {
+  background: linear-gradient(135deg, #0d3d35, #0f172a);
+  border: 1px solid rgba(13,148,136,0.3);
+  transform: rotateY(180deg);
+}
+
+.fc-emoji { font-size: 2.5rem; margin-bottom: 8px; display: block; }
+.fc-term { font-size: 1.1rem; font-weight: 800; color: var(--amber); }
+.fc-hint { font-size: 0.7rem; color: var(--muted); margin-top: 4px; font-family: 'Courier New', monospace; }
+.fc-def { font-size: 0.85rem; color: var(--white); line-height: 1.5; }
+
+.fc-nav-row {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  margin-top: 8px;
+}
+
+.fc-nav-btn {
+  background: rgba(245,158,11,0.15);
+  border: 1px solid rgba(245,158,11,0.3);
+  border-radius: 10px;
+  width: 40px;
+  height: 40px;
+  color: var(--amber);
+  font-size: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.2s;
+}
+
+.fc-nav-btn:hover { background: rgba(245,158,11,0.25); }
+.fc-counter { font-size: 0.85rem; font-weight: 700; color: var(--white); min-width: 50px; text-align: center; }
+
+.fc-dots {
+  display: flex;
+  gap: 6px;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.fc-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.2);
+  transition: background 0.2s;
+}
+
+.fc-dot.active { background: var(--amber); }
+
+/* Quiz */
+.quiz-progress {
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  height: 5px;
+  overflow: hidden;
+  margin-bottom: 16px;
+}
+
+.quiz-prog-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--teal), var(--amber));
+  border-radius: 10px;
+  transition: width 0.4s ease;
+}
+
+.quiz-meta {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.72rem;
+  color: var(--muted);
+  font-family: 'Courier New', monospace;
+  margin-bottom: 14px;
+}
+
+.quiz-q-card {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 14px;
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.5;
+  text-align: center;
+}
+
+.quiz-q-icon { font-size: 2rem; display: block; margin-bottom: 8px; }
+
+.quiz-opts { display: flex; flex-direction: column; gap: 8px; }
+
+.quiz-opt {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  padding: 13px 16px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--white);
+  cursor: pointer;
+  text-align: left;
+  transition: all 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quiz-opt:hover { background: rgba(245,158,11,0.1); border-color: rgba(245,158,11,0.3); }
+.quiz-opt.correct { background: rgba(5,150,105,0.2); border-color: var(--emerald); color: #34d399; }
+.quiz-opt.wrong { background: rgba(225,29,72,0.15); border-color: var(--rose); color: #fb7185; }
+
+.opt-letter {
+  width: 26px;
+  height: 26px;
+  border-radius: 8px;
+  background: rgba(255,255,255,0.08);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.75rem;
+  font-weight: 800;
+  font-family: 'Courier New', monospace;
+  flex-shrink: 0;
+}
+
+.quiz-feedback {
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  margin-top: 10px;
+  animation: screenIn 0.3s ease;
+}
+
+.fb-correct { background: rgba(5,150,105,0.15); border: 1px solid rgba(5,150,105,0.3); color: #34d399; }
+.fb-wrong { background: rgba(225,29,72,0.1); border: 1px solid rgba(225,29,72,0.25); color: #fb7185; }
+
+/* Score screen */
+.score-screen {
+  text-align: center;
+  padding: 24px 16px;
+}
+
+.score-trophy { font-size: 5rem; display: block; margin-bottom: 12px; animation: trophyBounce 1.2s ease infinite; }
+
+@keyframes trophyBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-12px); }
+}
+
+.score-num { font-size: 3rem; font-weight: 900; color: var(--amber); }
+.score-msg { font-size: 1.1rem; font-weight: 700; color: var(--white); margin: 6px 0 20px; }
+.score-stars { font-size: 1.8rem; margin-bottom: 20px; }
+
+/* Competency questions */
+.comp-q {
+  background: var(--card);
+  border: 1px solid rgba(79,70,229,0.3);
+  border-left: 3px solid var(--indigo);
+  border-radius: 0 var(--radius) var(--radius) 0;
+  padding: 16px;
+  margin-bottom: 12px;
+}
+
+.comp-q .cq-tag {
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #818cf8;
+  font-family: 'Courier New', monospace;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+}
+
+.comp-q .cq-q {
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--white);
+  line-height: 1.5;
+  margin-bottom: 10px;
+}
+
+.comp-q textarea {
+  width: 100%;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius-sm);
+  padding: 10px 12px;
+  font-size: 0.85rem;
+  color: var(--white);
+  font-family: 'Georgia', serif;
+  resize: none;
+  min-height: 80px;
+  transition: border-color 0.2s;
+  outline: none;
+}
+
+.comp-q textarea:focus { border-color: rgba(79,70,229,0.5); }
+
+/* Notes section */
+.notes-area {
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: var(--radius);
+  padding: 14px;
+  min-height: 200px;
+  font-size: 0.9rem;
+  color: var(--white);
+  font-family: 'Georgia', serif;
+  line-height: 1.7;
+  resize: vertical;
+  width: 100%;
+  outline: none;
+  transition: border-color 0.2s;
+}
+
+.notes-area:focus { border-color: rgba(245,158,11,0.4); }
+
+/* Map interactive */
+.india-map-svg {
+  width: 100%;
+  max-height: 300px;
+  cursor: pointer;
+}
+
+.india-map-svg path {
+  fill: rgba(13,148,136,0.3);
+  stroke: rgba(13,148,136,0.6);
+  stroke-width: 1;
+  transition: fill 0.3s;
+  cursor: pointer;
+}
+
+.india-map-svg path:hover { fill: rgba(245,158,11,0.5); }
+.india-map-svg path.selected { fill: rgba(245,158,11,0.6); stroke: var(--amber); }
+
+/* Activity */
+.activity-card {
+  background: linear-gradient(135deg, rgba(79,70,229,0.2), rgba(13,148,136,0.2));
+  border: 1px solid rgba(79,70,229,0.3);
+  border-radius: var(--radius);
+  padding: 18px;
+  margin-bottom: 12px;
+}
+
+.activity-card h4 {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #818cf8;
+  margin-bottom: 8px;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.activity-card p {
+  font-size: 0.85rem;
+  color: rgba(248,250,252,0.75);
+  line-height: 1.6;
+}
+
+/* ============================================================
+   PROGRESS SCREEN
+   ============================================================ */
+#progress-screen { background: var(--navy); padding: 16px; }
+
+.progress-hero {
+  background: linear-gradient(135deg, rgba(245,158,11,0.2), rgba(13,148,136,0.2));
+  border: 1px solid rgba(245,158,11,0.25);
+  border-radius: var(--radius);
+  padding: 24px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.prog-total-stars { font-size: 2.5rem; font-weight: 900; color: var(--amber); display: block; }
+.prog-label { font-size: 0.75rem; color: var(--muted); font-family: 'Courier New', monospace; }
+
+.badges-wrap {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.badge-card {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-sm);
+  padding: 14px 8px;
+  text-align: center;
+  opacity: 0.4;
+  transition: opacity 0.3s;
+}
+
+.badge-card.earned { opacity: 1; }
+.badge-card .bc-icon { font-size: 1.8rem; }
+.badge-card .bc-name { font-size: 0.65rem; color: var(--muted); font-family: 'Courier New', monospace; margin-top: 4px; }
+
+.ch-prog-row {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-sm);
+  padding: 12px 14px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.ch-prog-icon { font-size: 1.3rem; }
+.ch-prog-name { flex: 1; font-size: 0.82rem; font-weight: 600; color: var(--white); }
+.ch-prog-score { font-size: 0.8rem; font-weight: 700; color: var(--amber); }
+
+/* ============================================================
+   BOOKMARKS / NOTES SCREEN
+   ============================================================ */
+#bookmarks-screen { background: var(--navy); padding: 16px; }
+
+.bm-empty {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--muted);
+  font-size: 0.9rem;
+  font-family: 'Courier New', monospace;
+}
+
+.bm-item {
+  background: var(--card);
+  border: 1px solid rgba(255,255,255,0.07);
+  border-radius: var(--radius-sm);
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  cursor: pointer;
+  margin-bottom: 8px;
+  transition: border-color 0.2s;
+}
+
+.bm-item:hover { border-color: rgba(245,158,11,0.3); }
+
+/* ============================================================
+   RANDOM QUIZ SCREEN
+   ============================================================ */
+#random-quiz-screen { background: var(--navy); }
+
+/* ============================================================
+   MODAL
+   ============================================================ */
+.modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.75);
+  backdrop-filter: blur(8px);
+  z-index: 500;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+}
+
+.modal-overlay.active { display: flex; }
+
+.modal-box {
+  background: #1e293b;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: var(--radius);
+  padding: 24px;
+  max-width: 360px;
+  width: 100%;
+  text-align: center;
+  animation: screenIn 0.3s ease;
+}
+
+.modal-box h3 { font-size: 1.1rem; color: var(--white); margin-bottom: 8px; }
+.modal-box p { font-size: 0.85rem; color: var(--muted); margin-bottom: 20px; line-height: 1.5; }
+
+/* ============================================================
+   UTILITY BUTTONS
+   ============================================================ */
+.btn {
+  border: none;
+  border-radius: 50px;
+  padding: 12px 24px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'Courier New', monospace;
+  letter-spacing: 0.5px;
+  transition: transform 0.2s, opacity 0.2s;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.btn:hover { transform: translateY(-2px); }
+.btn:active { transform: scale(0.97); }
+
+.btn-amber { background: linear-gradient(135deg, var(--amber), #d97706); color: #0f172a; }
+.btn-teal { background: linear-gradient(135deg, var(--teal), #0f766e); color: white; }
+.btn-indigo { background: linear-gradient(135deg, var(--indigo), #3730a3); color: white; }
+.btn-rose { background: linear-gradient(135deg, var(--rose), #be123c); color: white; }
+.btn-ghost { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.15); color: var(--white); }
+.btn-full { width: 100%; justify-content: center; margin-bottom: 8px; }
+
+/* ============================================================
+   CELEBRATION
+   ============================================================ */
+.celebration {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9000;
+  overflow: hidden;
+}
+
+.conf {
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border-radius: 2px;
+  animation: confDrop linear forwards;
+}
+
+@keyframes confDrop {
+  from { transform: translateY(-10px) rotate(0deg); opacity: 1; }
+  to { transform: translateY(100vh) rotate(720deg); opacity: 0; }
+}
+
+/* ============================================================
+   INSTALL BANNER
+   ============================================================ */
+.install-banner {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: linear-gradient(90deg, #1e293b, #0f172a);
+  border-top: 1px solid rgba(245,158,11,0.3);
+  padding: 12px 16px;
+  display: none;
+  align-items: center;
+  gap: 10px;
+  z-index: 200;
+  animation: slideUpBanner 0.4s ease;
+}
+
+@keyframes slideUpBanner {
+  from { transform: translateY(100%); }
+  to { transform: translateY(0); }
+}
+
+.install-banner.show { display: flex; }
+.ib-text { flex: 1; font-size: 0.8rem; color: var(--muted); font-family: 'Courier New', monospace; }
+.ib-btn { background: var(--amber); color: #0f172a; border: none; border-radius: 20px; padding: 7px 16px; font-weight: 800; font-size: 0.8rem; cursor: pointer; }
+.ib-close { background: none; border: none; color: var(--muted); font-size: 1.1rem; cursor: pointer; }
+
+/* Responsive */
+@media (max-width: 360px) {
+  .nav-grid { grid-template-columns: 1fr 1fr; }
+}
+
+::-webkit-scrollbar { width: 4px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 10px; }
+</style>
+</head>
+<body>
+
+<!-- ========================================================
+     TITLE SCREEN
+======================================================== -->
+<div id="title-screen" class="screen active">
+  <div class="star-field" id="star-field"></div>
+
+  <!-- Floating globes -->
+  <div class="globe-float" style="top:8%;left:5%;animation-duration:7s">🌍</div>
+  <div class="globe-float" style="top:12%;right:6%;animation-duration:9s;animation-delay:1s">🗺️</div>
+  <div class="globe-float" style="bottom:20%;left:4%;animation-duration:8s;animation-delay:2s">🏛️</div>
+  <div class="globe-float" style="bottom:30%;right:5%;animation-duration:6s;animation-delay:0.5s">📜</div>
+  <div class="globe-float" style="top:35%;left:2%;animation-duration:10s;animation-delay:1.5s">⚖️</div>
+
+  <!-- Concentric rings -->
+  <div class="title-ring" style="width:400px;height:400px;margin:auto;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:0s"></div>
+  <div class="title-ring" style="width:300px;height:300px;margin:auto;position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);animation-delay:1s;animation-duration:5s"></div>
+
+  <div style="position:relative;z-index:2;width:100%;max-width:420px">
+    <div class="title-tag">📚 JKBOSE · Class 8 · SST</div>
+
+    <h1 class="title-main">Class 8<br><span>Social Science</span><br>Learning App</h1>
+    <p class="title-sub">History · Geography · Civics</p>
+
+    <!-- Author Photo -->
+    <div class="author-ring-wrap">
+      <div class="author-ring-outer"></div>
+      <div class="author-ring-inner">
+        <img src="author.jpg" alt="Mateen Yousuf"
+          onerror="this.style.display='none';this.parentElement.innerHTML='<div style=\'width:100%;height:100%;background:linear-gradient(135deg,#1e293b,#0f172a);display:flex;align-items:center;justify-content:center;font-size:2.5rem\'>👨‍🏫</div>'">
+      </div>
+    </div>
+
+    <div class="author-name-title">Mateen Yousuf</div>
+    <div class="author-desig">Teacher<br>School Education Department<br>Jammu and Kashmir</div>
+
+    <div class="subject-badges">
+      <span class="subj-badge badge-hist">📜 History</span>
+      <span class="subj-badge badge-geo">🌍 Geography</span>
+      <span class="subj-badge badge-civ">⚖️ Civics</span>
+    </div>
+
+    <button class="start-btn" onclick="showScreen('home-screen')">
+      🚀 Begin Learning
+    </button>
+  </div>
+</div>
+
+<!-- ========================================================
+     HOME SCREEN
+======================================================== -->
+<div id="home-screen" class="screen">
+  <div class="top-bar">
+    <div class="tb-title">🌍 Class 8 Social Science</div>
+    <div class="tb-right">
+      <div class="tb-stars">⭐ <span id="home-stars">0</span></div>
+      <button class="dark-toggle" onclick="toggleDark()" id="dark-btn">☀️</button>
+    </div>
+  </div>
+
+  <div class="home-hero">
+    <div class="hero-label">Your Learning Journey</div>
+    <div class="hero-h1">Welcome, <span>Explorer!</span></div>
+    <div class="progress-wrap">
+      <div class="progress-fill" id="overall-bar" style="width:0%"></div>
+    </div>
+    <div class="progress-label" id="overall-label">0% complete · 0 of 18 chapters</div>
+  </div>
+
+  <div class="section-hd">⚡ Quick Access</div>
+  <div class="nav-grid" style="margin-bottom:10px">
+    <div class="nav-card" onclick="showScreen('chapters-screen')">
+      <span class="nc-icon">📚</span>
+      <span class="nc-label">All Chapters</span>
+      <span class="nc-sub">18 Lessons</span>
+    </div>
+    <div class="nav-card" onclick="showScreen('random-quiz-screen');startRandomQuiz()">
+      <span class="nc-icon">🎲</span>
+      <span class="nc-label">Random Quiz</span>
+      <span class="nc-sub">Mixed questions</span>
+    </div>
+    <div class="nav-card" onclick="showScreen('progress-screen');renderProgress()">
+      <span class="nc-icon">🏆</span>
+      <span class="nc-label">My Progress</span>
+      <span class="nc-sub">Stars & badges</span>
+    </div>
+    <div class="nav-card" onclick="showScreen('bookmarks-screen');renderBookmarks()">
+      <span class="nc-icon">🔖</span>
+      <span class="nc-label">Bookmarks</span>
+      <span class="nc-sub">Saved chapters</span>
+    </div>
+  </div>
+
+  <div class="section-hd">📊 Your Stats</div>
+  <div class="stats-row">
+    <div class="stat-box">
+      <span class="stat-num" id="st-chapters">0</span>
+      <span class="stat-lbl">Chapters Done</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num" id="st-stars">0</span>
+      <span class="stat-lbl">Total Stars</span>
+    </div>
+    <div class="stat-box">
+      <span class="stat-num" id="st-quizzes">0</span>
+      <span class="stat-lbl">Quizzes Done</span>
+    </div>
+  </div>
+
+  <div class="section-hd">📖 Recently Added</div>
+  <div id="recent-list" style="padding:0 14px 24px"></div>
+</div>
+
+<!-- ========================================================
+     CHAPTERS SCREEN
+======================================================== -->
+<div id="chapters-screen" class="screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <div class="tb-title">📚 Chapter Library</div>
+    <div class="tb-stars">⭐ <span id="ch-stars">0</span></div>
+  </div>
+
+  <div class="filter-row">
+    <button class="filter-btn active" onclick="filterChapters('all',this)">All (18)</button>
+    <button class="filter-btn hist-f" onclick="filterChapters('history',this)">📜 History</button>
+    <button class="filter-btn geo-f" onclick="filterChapters('geography',this)">🌍 Geography</button>
+    <button class="filter-btn civ-f" onclick="filterChapters('civics',this)">⚖️ Civics</button>
+  </div>
+
+  <div class="chapter-list" id="chapter-list"></div>
+</div>
+
+<!-- ========================================================
+     CHAPTER DETAIL SCREEN
+======================================================== -->
+<div id="chapter-screen" class="screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('chapters-screen')">←</button>
+    <div class="tb-title" id="ch-screen-title">Chapter</div>
+    <button style="background:none;border:none;color:var(--amber);font-size:1.2rem;cursor:pointer" onclick="toggleBookmark()" id="bm-btn">🔖</button>
+  </div>
+
+  <div class="tab-bar">
+    <button class="tab-btn active" onclick="showTab('learn')" data-tab="learn">📖 Learn</button>
+    <button class="tab-btn" onclick="showTab('timeline')" data-tab="timeline">⏳ Timeline</button>
+    <button class="tab-btn" onclick="showTab('map')" data-tab="map">🗺️ Map/Diagram</button>
+    <button class="tab-btn" onclick="showTab('flash')" data-tab="flash">🃏 Flashcards</button>
+    <button class="tab-btn" onclick="showTab('quiz')" data-tab="quiz">❓ Quiz</button>
+    <button class="tab-btn" onclick="showTab('comp')" data-tab="comp">🧠 Competency</button>
+    <button class="tab-btn" onclick="showTab('notes')" data-tab="notes">📝 Notes</button>
+  </div>
+
+  <div id="tab-learn" class="tab-content active"></div>
+  <div id="tab-timeline" class="tab-content"></div>
+  <div id="tab-map" class="tab-content"></div>
+  <div id="tab-flash" class="tab-content"></div>
+  <div id="tab-quiz" class="tab-content"></div>
+  <div id="tab-comp" class="tab-content"></div>
+  <div id="tab-notes" class="tab-content"></div>
+</div>
+
+<!-- ========================================================
+     PROGRESS SCREEN
+======================================================== -->
+<div id="progress-screen" class="screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <div class="tb-title">🏆 My Progress</div>
+  </div>
+  <div style="padding:16px">
+    <div class="progress-hero">
+      <span class="prog-total-stars" id="prog-stars">0 ⭐</span>
+      <span class="prog-label">Total Stars Earned</span>
+    </div>
+    <div class="section-hd" style="padding:0 0 10px">🥇 Exploration Badges</div>
+    <div class="badges-wrap" id="badges-wrap"></div>
+    <div class="section-hd" style="padding:0 0 10px">📖 Chapter Progress</div>
+    <div id="prog-chapter-list"></div>
+    <div style="margin-top:20px;text-align:center">
+      <button class="btn btn-rose" onclick="confirmReset()">🔄 Reset All Progress</button>
+    </div>
+  </div>
+</div>
+
+<!-- ========================================================
+     BOOKMARKS SCREEN
+======================================================== -->
+<div id="bookmarks-screen" class="screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <div class="tb-title">🔖 Bookmarks</div>
+  </div>
+  <div id="bookmarks-body" style="padding:16px"></div>
+</div>
+
+<!-- ========================================================
+     RANDOM QUIZ SCREEN
+======================================================== -->
+<div id="random-quiz-screen" class="screen">
+  <div class="top-bar">
+    <button class="back-btn" onclick="showScreen('home-screen')">←</button>
+    <div class="tb-title">🎲 Random Quiz</div>
+  </div>
+  <div id="random-quiz-body" style="padding:16px"></div>
+</div>
+
+<!-- ========================================================
+     MODAL
+======================================================== -->
+<div class="modal-overlay" id="modal-overlay">
+  <div class="modal-box" id="modal-body"></div>
+</div>
+
+<!-- Celebration layer -->
+<div class="celebration" id="celebration"></div>
+
+<!-- Install Banner -->
+<div class="install-banner" id="install-banner">
+  <span class="ib-text">📲 Install Class 8 SST App on your device!</span>
+  <button class="ib-btn" id="install-btn-el">Install</button>
+  <button class="ib-close" onclick="document.getElementById('install-banner').classList.remove('show')">✕</button>
+</div>
+
+<script>
+/* ============================================================
+   CURRICULUM DATA — JKBOSE Class 8 Social Science
+   ============================================================ */
+const CHAPTERS = [
+  /* ====== HISTORY ====== */
+  {
+    id: 1, subject: 'history', icon: '🏰',
+    name: 'How, When and Where',
+    color: '#e11d48',
+    learn: {
+      title: 'How, When and Where',
+      intro: 'History is the study of the past. Historians use various sources — documents, inscriptions, artefacts — to understand how people lived, what events occurred, and why changes happened over time.',
+      points: [
+        'Colonial administration used surveys, census reports and official records extensively.',
+        'James Mill divided Indian history into Hindu, Muslim and British periods — a problematic classification.',
+        'Time in history is measured through dates, decades, centuries and millennia.',
+        'Sources include official records, newspapers, diaries, paintings, and oral traditions.',
+        'The National Archives of India preserves documents from British colonial rule.'
+      ],
+      facts: [
+        { icon: '📅', val: '1857', lbl: 'Revolt of India' },
+        { icon: '📚', val: '1817', lbl: 'Mill\'s History' },
+        { icon: '🏛️', val: '1891', lbl: 'National Archives' },
+        { icon: '📊', val: '1881', lbl: 'First Census' }
+      ]
+    },
+    timeline: [
+      { year: '1817', event: 'James Mill writes History of India', desc: 'Divided Indian history into three periods: Hindu, Muslim, and British.' },
+      { year: '1857', event: 'First War of Independence', desc: 'Major revolt against British colonial rule across India.' },
+      { year: '1881', event: 'First Census of India', desc: 'British began systematic recording of Indian population data.' },
+      { year: '1891', event: 'National Archives founded', desc: 'Repository for official government records established.' },
+      { year: '1947', event: 'India gains Independence', desc: 'End of British colonial rule and beginning of a new era.' }
+    ],
+    flashcards: [
+      { emoji: '📜', term: 'Historiography', def: 'The study of how history is written and the methods historians use.' },
+      { emoji: '📁', term: 'Archives', def: 'Repositories where historical records and documents are preserved for future reference.' },
+      { emoji: '🗓️', term: 'Periodisation', def: 'The process of dividing history into distinct periods or eras for better understanding.' },
+      { emoji: '🔍', term: 'Primary Sources', def: 'Original documents, artefacts, or records created during the time being studied.' },
+      { emoji: '📖', term: 'Secondary Sources', def: 'Materials created after an event, based on analysis of primary sources.' }
+    ],
+    quiz: [
+      { q: 'Who divided Indian history into Hindu, Muslim, and British periods?', opts: ['Warren Hastings', 'James Mill', 'Lord Dalhousie', 'Charles Grant'], ans: 1, icon: '📚' },
+      { q: 'Where are colonial records of India preserved?', opts: ['British Museum', 'National Archives of India', 'Parliament Library', 'ASI'], ans: 1, icon: '🏛️' },
+      { q: 'What is the term for original documents from the period being studied?', opts: ['Secondary sources', 'Tertiary sources', 'Primary sources', 'Archives'], ans: 2, icon: '📜' },
+      { q: 'When was the first comprehensive census of India conducted?', opts: ['1857', '1872', '1881', '1900'], ans: 2, icon: '📊' },
+      { q: 'Which survey helped British understand Indian geography?', opts: ['Botanical Survey', 'Geological Survey', 'Trigonometrical Survey', 'Revenue Survey'], ans: 2, icon: '🗺️' }
+    ],
+    competency: [
+      { tag: 'REASONING', q: 'Why did the British attach so much importance to surveys and census operations in colonial India?' },
+      { tag: 'APPLICATION', q: 'How does periodisation of history affect our understanding of the past? Give examples from Indian history.' }
+    ],
+    activity: 'Visit a local library and identify 3 primary sources (old newspapers, government orders, photographs) about your town\'s history. Note what each tells us about life in that period.',
+    mapTitle: 'India Under British Rule',
+    mapType: 'concept'
+  },
+  {
+    id: 2, subject: 'history', icon: '🌾',
+    name: 'From Trade to Territory',
+    color: '#e11d48',
+    learn: {
+      title: 'From Trade to Territory: The Company Establishes Power',
+      intro: 'The East India Company began as a trading company but gradually extended its political control over India through wars, treaties, and policy manipulations.',
+      points: [
+        'East India Company was established in 1600 as a trading company.',
+        'Battle of Plassey (1757) gave British control over Bengal.',
+        'Battle of Buxar (1764) established British political supremacy.',
+        'Doctrine of Lapse — territories with no male heir were annexed by British.',
+        'Subsidiary Alliance — Indian rulers kept British troops and paid for them.'
+      ],
+      facts: [
+        { icon: '⚓', val: '1600', lbl: 'EIC Founded' },
+        { icon: '⚔️', val: '1757', lbl: 'Battle of Plassey' },
+        { icon: '🏴', val: '1764', lbl: 'Battle of Buxar' },
+        { icon: '📋', val: '1849', lbl: 'Punjab Annexed' }
+      ]
+    },
+    timeline: [
+      { year: '1600', event: 'East India Company Founded', desc: 'Queen Elizabeth I granted charter to the company for trade with the East.' },
+      { year: '1757', event: 'Battle of Plassey', desc: 'Robert Clive defeated Nawab Siraj-ud-Daulah; Bengal under British control.' },
+      { year: '1764', event: 'Battle of Buxar', desc: 'British defeated combined forces of Nawabs and Mughal Emperor.' },
+      { year: '1799', event: 'Fall of Tipu Sultan', desc: 'Tipu Sultan defeated and killed; Mysore brought under British influence.' },
+      { year: '1849', event: 'Punjab Annexed', desc: 'After Sikh Wars, Punjab was annexed by the British East India Company.' }
+    ],
+    flashcards: [
+      { emoji: '🚢', term: 'East India Company', def: 'A British trading company founded in 1600 that eventually took political control of India.' },
+      { emoji: '⚔️', term: 'Battle of Plassey', def: 'Fought in 1757 between Company forces and Nawab of Bengal; Company\'s first major political victory.' },
+      { emoji: '🤝', term: 'Subsidiary Alliance', def: 'Policy where Indian rulers accepted British troops and paid for them, giving Company political control.' },
+      { emoji: '📜', term: 'Doctrine of Lapse', def: 'Lord Dalhousie\'s policy: states with no male heir were annexed by the British.' },
+      { emoji: '👑', term: 'Diwani Rights', def: 'Rights to collect revenue from Bengal, Bihar, Orissa granted to EIC in 1765 by Mughal Emperor.' }
+    ],
+    quiz: [
+      { q: 'When was the East India Company established?', opts: ['1500', '1600', '1650', '1700'], ans: 1, icon: '🚢' },
+      { q: 'Which battle gave British control over Bengal?', opts: ['Battle of Buxar', 'Battle of Plassey', 'Battle of Panipat', 'Battle of Mysore'], ans: 1, icon: '⚔️' },
+      { q: 'Who introduced the Doctrine of Lapse?', opts: ['Lord Wellesley', 'Lord Cornwallis', 'Lord Dalhousie', 'Lord Hastings'], ans: 2, icon: '📜' },
+      { q: 'Subsidiary Alliance was a policy of which Governor General?', opts: ['Lord Cornwallis', 'Lord Wellesley', 'Lord Dalhousie', 'Warren Hastings'], ans: 1, icon: '🤝' },
+      { q: 'Tipu Sultan was the ruler of which kingdom?', opts: ['Awadh', 'Hyderabad', 'Mysore', 'Punjab'], ans: 2, icon: '🏰' }
+    ],
+    competency: [
+      { tag: 'REASONING', q: 'How did the East India Company transform from a trading company to a political power in India? Explain the steps.' },
+      { tag: 'CRITICAL THINKING', q: 'Was the Doctrine of Lapse a just policy? Argue for or against with historical examples.' }
+    ],
+    activity: 'Draw a timeline showing key battles fought by the East India Company between 1750 and 1850. Mark the territories gained after each battle.',
+    mapTitle: 'British Expansion in India',
+    mapType: 'expansion'
+  },
+  {
+    id: 3, subject: 'history', icon: '👑',
+    name: 'Ruling the Countryside',
+    color: '#e11d48',
+    learn: {
+      title: 'Ruling the Countryside',
+      intro: 'The British introduced new land revenue systems that transformed Indian agriculture and rural society, often causing distress to peasants.',
+      points: [
+        'Permanent Settlement (1793) fixed revenue demand permanently in Bengal.',
+        'Ryotwari System — direct settlement with individual peasants (South India).',
+        'Mahalwari System — settlement with village headmen (North India).',
+        'Indigo was cultivated by force on peasants in Bengal and Bihar.',
+        'Blue Mutiny (1859-60): peasant revolt against indigo planters.' ],
+      facts: [
+        { icon: '🌾', val: '1793', lbl: 'Permanent Settlement' },
+        { icon: '🔵', val: '1859', lbl: 'Blue Mutiny' },
+        { icon: '💰', val: '60%', lbl: 'Revenue Demand' },
+        { icon: '🏘️', val: 'Zamindars', lbl: 'Tax Collectors' }
+      ]
+    },
+    timeline: [
+      { year: '1793', event: 'Permanent Settlement', desc: 'Lord Cornwallis fixed land revenue in Bengal; zamindars became landowners.' },
+      { year: '1820s', event: 'Ryotwari System Spread', desc: 'Thomas Munro introduced direct revenue settlement with peasants in Bombay.' },
+      { year: '1840s', event: 'Mahalwari System', desc: 'Settlement made with villages in North India under William Bentinck.' },
+      { year: '1859', event: 'Indigo Revolt', desc: 'Bengali peasants refused to grow indigo; major uprising against planters.' },
+      { year: '1917', event: 'Champaran Satyagraha', desc: 'Gandhi fought for rights of indigo farmers in Bihar.' }
+    ],
+    flashcards: [
+      { emoji: '📋', term: 'Permanent Settlement', def: 'System introduced in 1793 fixing land revenue permanently; zamindars became landowners.' },
+      { emoji: '👨‍🌾', term: 'Ryot', def: 'Individual peasant farmer who cultivated land; also spelled raiyat.' },
+      { emoji: '🔵', term: 'Indigo', def: 'Blue dye plant cultivated by peasants under coercion; led to major revolts.' },
+      { emoji: '🏘️', term: 'Mahal', def: 'A village or estate; Mahalwari system settled revenue with entire villages.' },
+      { emoji: '💰', term: 'Zamindar', def: 'Landlord responsible for collecting revenue; became owners of land under Permanent Settlement.' }
+    ],
+    quiz: [
+      { q: 'Permanent Settlement was introduced by which Governor General?', opts: ['Warren Hastings', 'Lord Wellesley', 'Lord Cornwallis', 'Lord Dalhousie'], ans: 2, icon: '📜' },
+      { q: 'The Indigo Revolt occurred in which year?', opts: ['1857', '1859', '1871', '1885'], ans: 1, icon: '🔵' },
+      { q: 'Ryotwari System was mainly implemented in:', opts: ['Bengal', 'South India', 'North India', 'Punjab'], ans: 1, icon: '🌾' },
+      { q: 'Under Permanent Settlement, who collected land revenue?', opts: ['British officers', 'Village headmen', 'Zamindars', 'Ryots'], ans: 2, icon: '💰' },
+      { q: 'Champaran Satyagraha was fought for the rights of:', opts: ['Coal miners', 'Indigo farmers', 'Weavers', 'Merchants'], ans: 1, icon: '✊' }
+    ],
+    competency: [
+      { tag: 'REASONING', q: 'How did the Permanent Settlement benefit zamindars but harm peasants? Explain with specific examples.' },
+      { tag: 'APPLICATION', q: 'Compare any two land revenue systems introduced by the British. Which was more exploitative and why?' }
+    ],
+    activity: 'Research the Champaran Satyagraha of 1917. Write a short report on how Gandhi helped indigo farmers and the outcome of the movement.',
+    mapTitle: 'Revenue Systems in Colonial India',
+    mapType: 'concept'
+  },
+  {
+    id: 4, subject: 'history', icon: '✊',
+    name: 'Tribals, Dikus and the Vision of a Golden Age',
+    color: '#e11d48',
+    learn: {
+      title: 'Tribals, Dikus and the Vision of a Golden Age',
+      intro: 'Tribal communities in India had distinct ways of life — as shifting cultivators, hunters, herders, and craftsmen. Colonial rule and forest policies disrupted their existence.',
+      points: [
+        'Shifting cultivation (jhum) was traditional tribal farming practice.',
+        'British forest policies restricted tribal access to forests, disrupting livelihoods.',
+        'Dikus — outsiders/moneylenders who exploited tribal communities.',
+        'Birsa Munda led the Ulgulan (Great Tumult) — tribal revolt in Jharkhand.',
+        'Santhal Rebellion (1855-56) against British rule and moneylenders.'
+      ],
+      facts: [
+        { icon: '🌲', val: '1878', lbl: 'Forest Act' },
+        { icon: '✊', val: '1855', lbl: 'Santhal Revolt' },
+        { icon: '⚡', val: '1899', lbl: 'Birsa Movement' },
+        { icon: '🏹', val: 'Jhum', lbl: 'Tribal Farming' }
+      ]
+    },
+    timeline: [
+      { year: '1855', event: 'Santhal Rebellion', desc: 'Santhal tribals rose against British rule and money-lenders under Sidhu and Kanhu.' },
+      { year: '1878', event: 'Forest Act', desc: 'British classified forests; tribals lost traditional rights to collect forest produce.' },
+      { year: '1895', event: 'Birsa Munda\'s Movement Begins', desc: 'Birsa proclaimed himself a messenger of god; called for end of British rule.' },
+      { year: '1899', event: 'Ulgulan (Great Tumult)', desc: 'Armed uprising by Munda tribals against British and landlords.' },
+      { year: '1900', event: 'Birsa Munda\'s Death', desc: 'Birsa died in Ranchi jail; remembered as Dharti Aba (Father of Earth).' }
+    ],
+    flashcards: [
+      { emoji: '🌲', term: 'Jhum Cultivation', def: 'Shifting cultivation practiced by tribals — clearing forest land, farming for few years, then moving.' },
+      { emoji: '👿', term: 'Diku', def: 'Outsiders or moneylenders who exploited tribal communities; considered enemies by tribals.' },
+      { emoji: '⚡', term: 'Ulgulan', def: 'The Great Tumult — uprising led by Birsa Munda against British and landlords in 1899.' },
+      { emoji: '🏹', term: 'Birsa Munda', def: 'Tribal leader who led revolt against British rule in Jharkhand; called Dharti Aba.' },
+      { emoji: '🌿', term: 'Forest Act 1878', def: 'Classified forests into reserved, protected, and village forests; restricted tribal access.' }
+    ],
+    quiz: [
+      { q: 'What is Jhum cultivation?', opts: ['Wet rice farming', 'Shifting cultivation', 'Terrace farming', 'Irrigation farming'], ans: 1, icon: '🌲' },
+      { q: 'Birsa Munda led the movement called:', opts: ['Santhal Rebellion', 'Tana Bhagat Movement', 'Ulgulan', 'Deccan Riots'], ans: 2, icon: '⚡' },
+      { q: 'Dikus in tribal context means:', opts: ['Forest officers', 'Village elders', 'Outsider moneylenders', 'British soldiers'], ans: 2, icon: '💰' },
+      { q: 'The Santhal Rebellion took place in:', opts: ['1847', '1855', '1857', '1860'], ans: 1, icon: '✊' },
+      { q: 'The Forest Act that restricted tribal rights was passed in:', opts: ['1858', '1865', '1878', '1890'], ans: 2, icon: '🌿' }
+    ],
+    competency: [
+      { tag: 'EMPATHY', q: 'Imagine you are a tribal elder in 1879 after the Forest Act. Write a letter to the British authorities explaining how the new law has affected your community.' },
+      { tag: 'ANALYSIS', q: 'Why did tribal communities see the British and dikus as enemies? What specific policies threatened their way of life?' }
+    ],
+    activity: 'Research any one tribal revolt in India (Santhal, Munda, Bhil, Kol). Create a factfile: who led it, when, why, and what happened.',
+    mapTitle: 'Tribal Regions of India',
+    mapType: 'concept'
+  },
+  {
+    id: 5, subject: 'history', icon: '🏭',
+    name: 'When People Rebel — 1857',
+    color: '#e11d48',
+    learn: {
+      title: 'When People Rebel: 1857 and After',
+      intro: 'The revolt of 1857 was a major challenge to British rule in India. Sepoys, peasants, zamindars, and rulers rose together in what is called India\'s First War of Independence.',
+      points: [
+        'The immediate cause was the introduction of Enfield rifle cartridges greased with animal fat.',
+        'Mangal Pandey fired the first shot at Barrackpore on March 29, 1857.',
+        'Major centres: Meerut, Delhi, Kanpur, Lucknow, Jhansi, Gwalior.',
+        'Rani Lakshmibai of Jhansi and Nana Sahib of Kanpur became iconic leaders.',
+        'After the revolt, Crown took over from the Company; Queen Victoria\'s Proclamation 1858.'
+      ],
+      facts: [
+        { icon: '⚔️', val: '1857', lbl: 'Great Revolt' },
+        { icon: '🏰', val: 'Meerut', lbl: '1st Uprising' },
+        { icon: '👸', val: 'Lakshmibai', lbl: 'Rani of Jhansi' },
+        { icon: '👑', val: '1858', lbl: 'Crown Rule' }
+      ]
+    },
+    timeline: [
+      { year: 'Mar 1857', event: 'Mangal Pandey\'s Shot', desc: 'Sepoy at Barrackpore fired at British officer; first spark of revolt.' },
+      { year: 'May 1857', event: 'Meerut Uprising', desc: 'Sepoys rebelled, marched to Delhi, and proclaimed Bahadur Shah Zafar as Emperor.' },
+      { year: 'Jun 1857', event: 'Kanpur Massacre', desc: 'British forces and families killed; Nana Sahib led the Kanpur revolt.' },
+      { year: '1858', event: 'British Suppress Revolt', desc: 'Rani Lakshmibai dies in Gwalior; revolt suppressed across India.' },
+      { year: 'Nov 1858', event: 'Queen\'s Proclamation', desc: 'Crown takes over from Company; British Raj officially established.' }
+    ],
+    flashcards: [
+      { emoji: '🔫', term: 'Enfield Rifle', def: 'Rifle with cartridges rumoured to be greased with cow and pig fat; sparked the 1857 revolt.' },
+      { emoji: '⚔️', term: 'Sepoy Mutiny', def: 'Term used by British for 1857 revolt; Indians call it First War of Independence.' },
+      { emoji: '👸', term: 'Rani Lakshmibai', def: 'Queen of Jhansi who led fierce resistance against British; died in battle at Gwalior.' },
+      { emoji: '👑', term: 'Bahadur Shah Zafar', def: 'Last Mughal Emperor; became symbolic leader of 1857 revolt; exiled to Burma.' },
+      { emoji: '📜', term: 'Queen\'s Proclamation 1858', def: 'Queen Victoria announced that Crown would take over rule from the East India Company.' }
+    ],
+    quiz: [
+      { q: 'Who fired the first shot in the 1857 revolt?', opts: ['Tantia Tope', 'Bahadur Shah Zafar', 'Mangal Pandey', 'Nana Sahib'], ans: 2, icon: '🔫' },
+      { q: 'The 1857 revolt began in which city?', opts: ['Delhi', 'Lucknow', 'Meerut', 'Kanpur'], ans: 2, icon: '🏙️' },
+      { q: 'Rani Lakshmibai was the queen of:', opts: ['Awadh', 'Jhansi', 'Gwalior', 'Hyderabad'], ans: 1, icon: '👸' },
+      { q: 'After 1857, India came under direct rule of:', opts: ['East India Company', 'British Parliament', 'British Crown', 'Board of Control'], ans: 2, icon: '👑' },
+      { q: 'Bahadur Shah Zafar was exiled to:', opts: ['England', 'Singapore', 'Burma', 'South Africa'], ans: 2, icon: '🚢' }
+    ],
+    competency: [
+      { tag: 'MULTI-PERSPECTIVE', q: 'The 1857 revolt is called "Sepoy Mutiny" by British and "First War of Independence" by Indians. Why do these different names reflect different perspectives?' },
+      { tag: 'ANALYSIS', q: 'What were the long-term consequences of the 1857 revolt for British policy in India? Give at least three changes.' }
+    ],
+    activity: 'Create a "War Map" of the 1857 revolt showing major centres, leaders, and the outcome at each place. Use colours to show areas under revolt vs British control.',
+    mapTitle: '1857 Revolt: Key Centres',
+    mapType: 'revolt'
+  },
+  {
+    id: 6, subject: 'history', icon: '🏗️',
+    name: 'Civilising the Native, Educating the Nation',
+    color: '#e11d48',
+    learn: {
+      title: 'Civilising the Native, Educating the Nation',
+      intro: 'Colonial education policies profoundly shaped Indian society. The debate between Orientalists (who wanted to promote Indian knowledge) and Anglicists (who favoured English education) defined colonial education.',
+      points: [
+        'Orientalists like William Jones promoted study of Sanskrit and Arabic texts.',
+        'Thomas Macaulay\'s Minute on Education (1835) established English as medium.',
+        'Woods Despatch (1854) created a network of schools and universities.',
+        'Tagore established Shantiniketan as an alternative to colonial education.',
+        'Mahatma Gandhi and others criticised Western education for alienating Indians from their roots.'
+      ],
+      facts: [
+        { icon: '📚', val: '1835', lbl: 'Macaulay\'s Minute' },
+        { icon: '🏛️', val: '1857', lbl: 'First Universities' },
+        { icon: '🌿', val: '1901', lbl: 'Shantiniketan' },
+        { icon: '🖊️', val: '1854', lbl: 'Woods Despatch' }
+      ]
+    },
+    timeline: [
+      { year: '1813', event: 'Charter Act', desc: 'British Parliament allocated funds for education in India; debate on medium began.' },
+      { year: '1835', event: 'Macaulay\'s Minute', desc: 'English declared medium of instruction; Anglicist view prevailed over Orientalists.' },
+      { year: '1854', event: 'Wood\'s Despatch', desc: 'Education policy established university affiliating system; English medium secondary schools.' },
+      { year: '1857', event: 'Three Universities Founded', desc: 'Universities of Calcutta, Bombay, and Madras established.' },
+      { year: '1901', event: 'Shantiniketan Founded', desc: 'Rabindranath Tagore established school combining Indian and global education values.' }
+    ],
+    flashcards: [
+      { emoji: '📜', term: 'Macaulay\'s Minute', def: 'Thomas Macaulay\'s 1835 policy making English the medium of education; aimed to create "brown sahibs".' },
+      { emoji: '🎓', term: 'Orientalists', def: 'Scholars who wanted to promote Indian languages and traditional knowledge in colonial education.' },
+      { emoji: '🏫', term: 'Anglicists', def: 'Those who argued English and Western knowledge should replace traditional Indian learning.' },
+      { emoji: '🌳', term: 'Shantiniketan', def: 'School founded by Tagore in 1901 that combined Indian and global education in natural settings.' },
+      { emoji: '📋', term: 'Woods Despatch 1854', def: 'Education policy creating network from primary to university level; called Magna Carta of Indian Education.' }
+    ],
+    quiz: [
+      { q: 'Who wrote the Minute on Education in 1835?', opts: ['William Jones', 'Warren Hastings', 'Thomas Macaulay', 'Charles Wood'], ans: 2, icon: '📜' },
+      { q: 'Wood\'s Despatch is also called:', opts: ['Charter of Education', 'Magna Carta of Education', 'Education Act', 'Indian Minute'], ans: 1, icon: '📋' },
+      { q: 'Shantiniketan was founded by:', opts: ['M.K. Gandhi', 'Jawaharlal Nehru', 'Rabindranath Tagore', 'Dayanand Saraswati'], ans: 2, icon: '🌳' },
+      { q: 'When were the first three Indian universities established?', opts: ['1835', '1845', '1857', '1865'], ans: 2, icon: '🏛️' },
+      { q: 'Orientalists in India wanted to promote:', opts: ['English education', 'Sanskrit and Arabic learning', 'Western sciences', 'Christian education'], ans: 1, icon: '📚' }
+    ],
+    competency: [
+      { tag: 'CRITICAL THINKING', q: 'Was Macaulay\'s education policy good for India? Evaluate its positive and negative effects.' },
+      { tag: 'REFLECTION', q: 'How does colonial education continue to influence Indian education today? Give three examples.' }
+    ],
+    activity: 'Compare Tagore\'s Shantiniketan model with a modern school. List three similarities and three differences in teaching methods and values.',
+    mapTitle: 'Colonial Education System',
+    mapType: 'concept'
+  },
+  /* ====== GEOGRAPHY ====== */
+  {
+    id: 7, subject: 'geography', icon: '🌾',
+    name: 'Resources',
+    color: '#059669',
+    learn: {
+      title: 'Resources',
+      intro: 'Resources are materials and conditions found in nature that are useful to people. Everything around us that satisfies our needs is a resource. Their value, use, and distribution determine economic and social development.',
+      points: [
+        'Resources can be natural (minerals, water, air) or human-made (roads, buildings).',
+        'Based on development: actual resources (being used), potential resources (not yet in use).',
+        'Based on ownership: individual, community, national, and international resources.',
+        'Resource conservation means using resources wisely for sustainable development.',
+        'Time and technology determine whether something is a resource.'
+      ],
+      facts: [
+        { icon: '⛏️', val: '89', lbl: 'Types of Minerals' },
+        { icon: '🌊', val: '2.5%', lbl: 'Fresh Water' },
+        { icon: '🌲', val: '21%', lbl: 'India\'s Forest' },
+        { icon: '☀️', val: 'Infinite', lbl: 'Solar Energy' }
+      ]
+    },
+    timeline: [
+      { year: '1972', event: 'Stockholm Conference', desc: 'First global conference on environment and resources; led to UNEP formation.' },
+      { year: '1987', event: 'Brundtland Report', desc: 'Defined sustainable development as meeting needs of present without compromising future.' },
+      { year: '1992', event: 'Rio Earth Summit', desc: 'Agenda 21 adopted; global agreement on sustainable resource use.' },
+      { year: '2002', event: 'Johannesburg Summit', desc: 'World Summit on Sustainable Development; action plan for resources.' },
+      { year: '2015', event: 'Sustainable Development Goals', desc: 'UN adopted 17 SDGs for balanced use of global resources by 2030.' }
+    ],
+    flashcards: [
+      { emoji: '💎', term: 'Resource', def: 'Any material or condition in the environment that satisfies human needs and has economic value.' },
+      { emoji: '⚙️', term: 'Actual Resource', def: 'Resources that are currently being used, like coal, iron ore, and timber already in production.' },
+      { emoji: '🔮', term: 'Potential Resource', def: 'Resources known to exist but not yet developed due to lack of technology or economic reasons.' },
+      { emoji: '♻️', term: 'Sustainable Development', def: 'Using resources to meet today\'s needs while preserving them for future generations.' },
+      { emoji: '🤝', term: 'Resource Conservation', def: 'Managing resources to prevent waste and ensure their long-term availability.' }
+    ],
+    quiz: [
+      { q: 'Which of these is a natural resource?', opts: ['Roads', 'Buildings', 'Rivers', 'Machines'], ans: 2, icon: '🌊' },
+      { q: 'Resources not yet developed due to lack of technology are called:', opts: ['Actual resources', 'Potential resources', 'Community resources', 'Stock'], ans: 1, icon: '🔮' },
+      { q: 'What percentage of Earth\'s water is fresh water?', opts: ['0.5%', '1.5%', '2.5%', '10%'], ans: 2, icon: '💧' },
+      { q: 'Sustainable development concept was given by:', opts: ['Stockholm Conference', 'Brundtland Report', 'Rio Summit', 'UNEP'], ans: 1, icon: '♻️' },
+      { q: 'Resources owned by local communities (like pastures) are called:', opts: ['Individual resources', 'National resources', 'Community resources', 'International resources'], ans: 2, icon: '🏘️' }
+    ],
+    competency: [
+      { tag: 'APPLICATION', q: 'How can a student at home practice resource conservation? Give 5 practical examples with reasoning.' },
+      { tag: 'ANALYSIS', q: 'Why are some countries resource-rich but economically poor while others are resource-poor but wealthy? Explain with examples.' }
+    ],
+    activity: 'Make a "Resource Audit" of your home. List 10 things you use daily and classify them as natural or human-made, renewable or non-renewable.',
+    mapTitle: 'Distribution of Resources in India',
+    mapType: 'india'
+  },
+  {
+    id: 8, subject: 'geography', icon: '🏔️',
+    name: 'Land, Soil, Water, Natural Vegetation and Wildlife',
+    color: '#059669',
+    learn: {
+      title: 'Land, Soil, Water, Natural Vegetation and Wildlife',
+      intro: 'These natural resources form the foundation of life on Earth. India has diverse landforms, soil types, water sources, and ecosystems that support extraordinary biodiversity.',
+      points: [
+        'Land is used for agriculture, forests, pastures, settlements, and industry.',
+        'India has 8 major soil types: Alluvial, Black, Red & Yellow, Laterite, Arid, Saline, Peaty, Forest soils.',
+        'Water is available as surface water (rivers, lakes) and groundwater.',
+        'India receives 75% of rainfall during the southwest monsoon (June–September).',
+        'Tropical rainforests, deciduous forests, mangroves, and grasslands are major vegetation types.'
+      ],
+      facts: [
+        { icon: '🌾', val: '51%', lbl: 'Net Sown Area' },
+        { icon: '🌊', val: '4%', lbl: 'Water Bodies' },
+        { icon: '🌲', val: '24%', lbl: 'Forests' },
+        { icon: '🐯', val: '80+', lbl: 'Tiger Reserves' }
+      ]
+    },
+    timeline: [
+      { year: '1970', event: 'Project Tiger Proposed', desc: 'After alarming decline in tiger population, India began Project Tiger in 1973.' },
+      { year: '1972', event: 'Wildlife Protection Act', desc: 'India enacted comprehensive law for protecting wild animals and plants.' },
+      { year: '1974', event: 'Chipko Movement', desc: 'Villagers in Uttarakhand hugged trees to prevent deforestation; Sunderlal Bahuguna led.' },
+      { year: '1988', event: 'Forest Policy', desc: 'India\'s National Forest Policy set target of 33% forest cover for India.' },
+      { year: '2006', event: 'Forest Rights Act', desc: 'Rights of forest-dwelling communities to forest land and produce recognised.' }
+    ],
+    flashcards: [
+      { emoji: '🌱', term: 'Alluvial Soil', def: 'Most fertile soil in India; deposited by rivers in plains; ideal for wheat, rice, and sugarcane.' },
+      { emoji: '⬛', term: 'Black Soil', def: 'Also called Regur soil; found in Deccan plateau; best for cotton cultivation.' },
+      { emoji: '🌧️', term: 'Monsoon', def: 'Seasonal wind that brings 75% of India\'s rainfall between June and September.' },
+      { emoji: '🌿', term: 'Biosphere Reserve', def: 'Protected areas maintaining biodiversity with buffer zones for limited human activity.' },
+      { emoji: '🌊', term: 'Mangroves', def: 'Coastal forests that grow in tidal areas; found in Sundarbans; protect coastlines.' }
+    ],
+    quiz: [
+      { q: 'Which soil is best for growing cotton?', opts: ['Alluvial', 'Black', 'Red', 'Laterite'], ans: 1, icon: '🌱' },
+      { q: 'India receives maximum rainfall during:', opts: ['Northeast monsoon', 'Southwest monsoon', 'Winter rains', 'Cyclones'], ans: 1, icon: '🌧️' },
+      { q: 'Sundarbans is famous for its:', opts: ['Deciduous forests', 'Grasslands', 'Mangrove forests', 'Coniferous forests'], ans: 2, icon: '🌿' },
+      { q: 'Chipko Movement was related to:', opts: ['Water conservation', 'Forest conservation', 'Soil conservation', 'Wildlife protection'], ans: 1, icon: '🌲' },
+      { q: 'What percentage of India\'s area is under net sown area?', opts: ['35%', '41%', '51%', '65%'], ans: 2, icon: '🌾' }
+    ],
+    competency: [
+      { tag: 'ENVIRONMENTAL AWARENESS', q: 'Climate change is threatening India\'s water resources. Identify three ways this affects farmers and suggest solutions.' },
+      { tag: 'MAP WORK', q: 'Name the major soil types found in your state. What crops are they best suited for?' }
+    ],
+    activity: 'Collect 5 soil samples from different locations (garden, riverbank, field, hill). Note the colour, texture, and moisture content of each. Identify which type each might be.',
+    mapTitle: 'Soil Types of India',
+    mapType: 'india'
+  },
+  {
+    id: 9, subject: 'geography', icon: '⛏️',
+    name: 'Mineral and Power Resources',
+    color: '#059669',
+    learn: {
+      title: 'Mineral and Power Resources',
+      intro: 'Minerals are naturally occurring substances with definite chemical composition. They are the backbone of industrial development. Power resources include both conventional and non-conventional energy sources.',
+      points: [
+        'Minerals are classified as metallic (iron, copper, gold) and non-metallic (mica, limestone).',
+        'India is rich in iron ore — Jharkhand, Odisha, Chhattisgarh are major producers.',
+        'Conventional energy: coal, petroleum, natural gas, hydroelectric power.',
+        'Non-conventional/renewable: solar, wind, tidal, geothermal, biogas energy.',
+        'India has the world\'s 4th largest coal reserves; Jharia and Raniganj are major coalfields.'
+      ],
+      facts: [
+        { icon: '⚙️', val: '4th', lbl: 'Coal Reserves' },
+        { icon: '🔋', val: '42%', lbl: 'Coal in Energy' },
+        { icon: '☀️', val: '300+', lbl: 'Sunny Days' },
+        { icon: '💨', val: '4th', lbl: 'Wind Power' }
+      ]
+    },
+    timeline: [
+      { year: '1774', event: 'Coal Mining in India', desc: 'First coal mine in India opened at Raniganj, West Bengal.' },
+      { year: '1956', event: 'Oil India Established', desc: 'Government of India created Oil India to manage petroleum exploration.' },
+      { year: '1975', event: 'Uranium Discovered in Jaduguda', desc: 'India discovered uranium deposits in Jharkhand; boosted nuclear programme.' },
+      { year: '2010', event: 'National Solar Mission', desc: 'India launched Jawaharlal Nehru National Solar Mission for large-scale solar energy.' },
+      { year: '2022', event: '175 GW Renewable Target', desc: 'India aimed for 175 GW renewable energy capacity as part of climate commitments.' }
+    ],
+    flashcards: [
+      { emoji: '⚫', term: 'Coal', def: 'Most abundant fossil fuel; India is 4th largest reserve; used for electricity generation.' },
+      { emoji: '🛢️', term: 'Petroleum', def: 'Crude oil found in sedimentary rocks; refined into petrol, diesel, kerosene; found in Mumbai High.' },
+      { emoji: '⚙️', term: 'Iron Ore', def: 'Metallic mineral used to make steel; India is major producer; found in Jharkhand and Odisha.' },
+      { emoji: '☀️', term: 'Solar Energy', def: 'Energy from sunlight; India receives 300+ sunny days; Rajasthan and Gujarat are top states.' },
+      { emoji: '💨', term: 'Wind Energy', def: 'Energy from wind; India is 4th largest wind power producer; Tamil Nadu and Gujarat lead.' }
+    ],
+    quiz: [
+      { q: 'India is 4th largest in reserves of which mineral fuel?', opts: ['Petroleum', 'Natural gas', 'Coal', 'Uranium'], ans: 2, icon: '⚫' },
+      { q: 'The largest coalfield in India is:', opts: ['Jharia', 'Raniganj', 'Talcher', 'Neyveli'], ans: 0, icon: '⛏️' },
+      { q: 'Mumbai High is known for production of:', opts: ['Coal', 'Iron ore', 'Petroleum', 'Mica'], ans: 2, icon: '🛢️' },
+      { q: 'Which state leads in solar energy production in India?', opts: ['Maharashtra', 'Rajasthan', 'Kerala', 'Odisha'], ans: 1, icon: '☀️' },
+      { q: 'Which of these is a NON-conventional energy source?', opts: ['Coal', 'Petroleum', 'Geothermal', 'Natural Gas'], ans: 2, icon: '♻️' }
+    ],
+    competency: [
+      { tag: 'ENERGY AWARENESS', q: 'India must shift from coal to renewable energy. What are the challenges in this transition? How can they be overcome?' },
+      { tag: 'REASONING', q: 'Why are mineral resources called non-renewable? What happens when they are exhausted?' }
+    ],
+    activity: 'Survey your neighbourhood electricity consumption. Note: how much power is used, for what, and suggest 3 ways to reduce consumption using renewable alternatives.',
+    mapTitle: 'Minerals and Energy Resources of India',
+    mapType: 'india'
+  },
+  {
+    id: 10, subject: 'geography', icon: '🌾',
+    name: 'Agriculture',
+    color: '#059669',
+    learn: {
+      title: 'Agriculture',
+      intro: 'Agriculture is the backbone of India\'s economy. India has diverse farming practices due to varied climate, soil, and terrain. The Green Revolution transformed Indian agriculture.',
+      points: [
+        'Types of farming: subsistence, commercial, plantation, mixed, and dry land farming.',
+        'Green Revolution (1960s-70s): HYV seeds, fertilisers, irrigation → wheat and rice revolution.',
+        'Kharif crops: sown in June-July, harvested in September-October (rice, cotton, maize).',
+        'Rabi crops: sown in October-November, harvested in March-April (wheat, mustard, pea).',
+        'Zaid crops: short duration crops grown in summer (cucumber, watermelon).'
+      ],
+      facts: [
+        { icon: '🌾', val: '58%', lbl: 'Rural Workforce' },
+        { icon: '🚜', val: '47%', lbl: 'GDP from Agri' },
+        { icon: '💧', val: '89%', lbl: 'Water Used' },
+        { icon: '🌱', val: '1966', lbl: 'Green Revolution' }
+      ]
+    },
+    timeline: [
+      { year: '1947', event: 'Food Crisis After Independence', desc: 'India faced severe food shortage; relied on imported wheat from USA (PL 480).' },
+      { year: '1965', event: 'Green Revolution Begins', desc: 'M.S. Swaminathan introduced HYV wheat; Punjab and Haryana became grain bowls.' },
+      { year: '1970', event: 'White Revolution', desc: 'Operation Flood led by Dr. Verghese Kurien transformed India into world\'s largest milk producer.' },
+      { year: '1975', event: 'Blue Revolution', desc: 'India increased fish production; Andhra Pradesh leads in aquaculture.' },
+      { year: '2015', event: 'Soil Health Card Scheme', desc: 'Government began testing soil and giving farmers soil health cards for better farming.' }
+    ],
+    flashcards: [
+      { emoji: '🌾', term: 'Kharif Crops', def: 'Crops sown in June-July and harvested in September-October; require plenty of water (rice, cotton, maize).' },
+      { emoji: '🌱', term: 'Rabi Crops', def: 'Crops sown in October-November and harvested in March-April; grown in cool weather (wheat, mustard).' },
+      { emoji: '🧬', term: 'HYV Seeds', def: 'High Yielding Variety seeds introduced in Green Revolution; gave much higher crop yields.' },
+      { emoji: '🌿', term: 'Green Revolution', def: 'Use of HYV seeds, fertilisers, and irrigation in 1960s-70s that dramatically increased food production.' },
+      { emoji: '🏡', term: 'Subsistence Farming', def: 'Farming mainly for the family\'s own consumption; little or no surplus for sale.' }
+    ],
+    quiz: [
+      { q: 'Rice is a major __ crop', opts: ['Rabi', 'Kharif', 'Zaid', 'Plantation'], ans: 1, icon: '🌾' },
+      { q: 'Green Revolution was started in which decade?', opts: ['1950s', '1960s', '1970s', '1980s'], ans: 1, icon: '🌱' },
+      { q: 'Wheat belongs to which crop season?', opts: ['Kharif', 'Zaid', 'Rabi', 'All seasons'], ans: 2, icon: '🌾' },
+      { q: 'Which state is called the "Rice Bowl" of India?', opts: ['Punjab', 'Haryana', 'Andhra Pradesh', 'Uttar Pradesh'], ans: 2, icon: '🍚' },
+      { q: 'The White Revolution in India related to:', opts: ['Cotton production', 'Milk production', 'Wheat production', 'Sugar production'], ans: 1, icon: '🥛' }
+    ],
+    competency: [
+      { tag: 'CRITICAL THINKING', q: 'The Green Revolution increased food production but caused environmental problems. Explain both sides of this argument.' },
+      { tag: 'PROBLEM SOLVING', q: 'A farmer in Rajasthan wants to improve crop yield. What agricultural technologies and methods would you recommend?' }
+    ],
+    activity: 'Interview a local farmer. Ask about: what crops they grow, which season, irrigation methods, and the main problems they face. Write a short report.',
+    mapTitle: 'Agricultural Regions of India',
+    mapType: 'india'
+  },
+  {
+    id: 11, subject: 'geography', icon: '🏭',
+    name: 'Industries',
+    color: '#059669',
+    learn: {
+      title: 'Industries',
+      intro: 'Industries transform raw materials into finished products. India has a diverse industrial sector ranging from traditional cottage industries to modern IT and heavy industries.',
+      points: [
+        'Industries are classified by raw material, size, ownership, and products.',
+        'Cotton textiles: India\'s oldest industry; Mumbai (Manchester of India), Ahmedabad.',
+        'Iron and Steel: Basic industry; Jamshedpur (TISCO, 1907), Bhilai, Bokaro, Rourkela.',
+        'IT industry: Bengaluru (Silicon Valley of India); major export earner.',
+        'India is one of the world\'s largest producers of textiles, steel, and software.'
+      ],
+      facts: [
+        { icon: '💻', val: '#1', lbl: 'IT Services' },
+        { icon: '🧵', val: '2nd', lbl: 'Textile World' },
+        { icon: '⚙️', val: '1907', lbl: 'TISCO Founded' },
+        { icon: '🏭', val: '27%', lbl: 'GDP Industry' }
+      ]
+    },
+    timeline: [
+      { year: '1854', event: 'First Cotton Mill in India', desc: 'First successful cotton textile mill established in Bombay; began India\'s industrial era.' },
+      { year: '1907', event: 'TISCO Founded', desc: 'Jamsetji Tata established Tata Iron and Steel Company in Jamshedpur, Jharkhand.' },
+      { year: '1948', event: 'Industrial Policy Resolution', desc: 'Indian government classified industries; public sector given importance in heavy industries.' },
+      { year: '1991', event: 'Economic Liberalisation', desc: 'India opened economy; private investment in industries increased dramatically.' },
+      { year: '2014', event: 'Make in India', desc: 'Government initiative to boost manufacturing and make India a global industrial hub.' }
+    ],
+    flashcards: [
+      { emoji: '🧵', term: 'Cottage Industry', def: 'Small-scale industry at home with minimal equipment; weaving, pottery, handloom are examples.' },
+      { emoji: '⚙️', term: 'Iron and Steel Industry', def: 'Basic/key industry producing steel for construction, machinery, transport; located near coal and iron ore.' },
+      { emoji: '💻', term: 'Information Technology', def: 'Industry using computers and internet; India is world leader in IT services; Bengaluru is hub.' },
+      { emoji: '🧪', term: 'Agro-based Industry', def: 'Industry using agricultural raw materials; cotton, jute, sugar, and edible oil industries.' },
+      { emoji: '🏭', term: 'Public Sector', def: 'Industries owned and operated by the government; like BHEL, SAIL, ONGC.' }
+    ],
+    quiz: [
+      { q: 'Bengaluru is called the Silicon Valley of India because of its:', opts: ['Steel industry', 'Textile industry', 'IT industry', 'Automobile industry'], ans: 2, icon: '💻' },
+      { q: 'TISCO was established in which city?', opts: ['Kolkata', 'Bokaro', 'Jamshedpur', 'Rourkela'], ans: 2, icon: '⚙️' },
+      { q: 'Mumbai is called the "Manchester of India" for its:', opts: ['Jute industry', 'Cotton textile industry', 'Iron industry', 'Sugar industry'], ans: 1, icon: '🧵' },
+      { q: 'Which of these is a basic/key industry?', opts: ['Cotton textiles', 'Sugar', 'Iron and Steel', 'Bread'], ans: 2, icon: '🏭' },
+      { q: 'India ranks first in the world in:', opts: ['Steel production', 'Oil production', 'IT services export', 'Coal production'], ans: 2, icon: '🌍' }
+    ],
+    competency: [
+      { tag: 'ANALYSIS', q: 'Why did cotton textile industry first develop in Mumbai and Ahmedabad? Identify geographical and economic factors.' },
+      { tag: 'FUTURE THINKING', q: 'How can "Make in India" change India\'s economy? What industries should India focus on and why?' }
+    ],
+    activity: 'Research 5 industries in your state. For each, note: type of industry, location, raw materials, and number of workers. Present as a table.',
+    mapTitle: 'Major Industries of India',
+    mapType: 'india'
+  },
+  {
+    id: 12, subject: 'geography', icon: '🚂',
+    name: 'Human Resources',
+    color: '#059669',
+    learn: {
+      title: 'Human Resources',
+      intro: 'Human resources are the most important resource. The skills, knowledge, and productive capacity of people drive development. India\'s large population is both a challenge and an opportunity.',
+      points: [
+        'India is 2nd most populous country with 1.4 billion people (2023 estimate).',
+        'Population density: highest in Uttar Pradesh, Bihar; lowest in Arunachal Pradesh.',
+        'Literacy rate improved from 18% (1951) to 77% (2011 census).',
+        'Human Development Index (HDI) measures education, health, and income.',
+        'Brain Drain: educated professionals leaving India for better opportunities abroad.'
+      ],
+      facts: [
+        { icon: '👥', val: '1.4B', lbl: 'India\'s Population' },
+        { icon: '📚', val: '77%', lbl: 'Literacy Rate' },
+        { icon: '👶', val: '25%', lbl: 'Under 14 Years' },
+        { icon: '🌍', val: '2nd', lbl: 'Most Populous' }
+      ]
+    },
+    timeline: [
+      { year: '1951', event: 'First Post-Independence Census', desc: 'India\'s population was 361 million; literacy just 18%.' },
+      { year: '1972', event: 'Family Planning Programme', desc: 'India intensified family planning; controversial sterilisation campaigns followed.' },
+      { year: '1994', event: 'Cairo Conference', desc: 'International conference on population and development; women\'s rights emphasised.' },
+      { year: '2000', event: 'India Reaches 1 Billion', desc: 'India\'s population crossed 1 billion mark on May 11, 2000.' },
+      { year: '2011', event: 'Census 2011', desc: 'Population: 1.21 billion; literacy: 74%; female literacy improved significantly.' }
+    ],
+    flashcards: [
+      { emoji: '👥', term: 'Population Density', def: 'Number of people living per square kilometre; India\'s density is 382 persons/sq km (2011).' },
+      { emoji: '📊', term: 'HDI', def: 'Human Development Index; measures health (life expectancy), education, and income per capita.' },
+      { emoji: '🔄', term: 'Migration', def: 'Movement of people from one place to another; rural-urban migration is common in India.' },
+      { emoji: '🎓', term: 'Brain Drain', def: 'Emigration of educated and skilled professionals to developed countries for better opportunities.' },
+      { emoji: '📉', term: 'Dependency Ratio', def: 'Ratio of non-working population (children + elderly) to working population.' }
+    ],
+    quiz: [
+      { q: 'India\'s approximate population in 2023 was:', opts: ['900 million', '1.1 billion', '1.4 billion', '1.6 billion'], ans: 2, icon: '👥' },
+      { q: 'Which state has the highest population density?', opts: ['Maharashtra', 'Uttar Pradesh', 'Bihar', 'West Bengal'], ans: 2, icon: '🗺️' },
+      { q: 'HDI stands for:', opts: ['Human Development Indicator', 'Human Development Index', 'Health Development Index', 'Human Density Index'], ans: 1, icon: '📊' },
+      { q: 'India\'s literacy rate as per 2011 census was approximately:', opts: ['60%', '68%', '74%', '82%'], ans: 2, icon: '📚' },
+      { q: 'Brain Drain refers to:', opts: ['Population growth', 'Rural-urban migration', 'Educated people emigrating abroad', 'Drought problems'], ans: 2, icon: '🎓' }
+    ],
+    competency: [
+      { tag: 'ANALYSIS', q: 'Is India\'s large population an asset or a liability? Present arguments for both sides.' },
+      { tag: 'PROBLEM SOLVING', q: 'What policies should the government implement to convert population into human capital? Suggest five measures.' }
+    ],
+    activity: 'Study population data of your district. Note: total population, literacy rate, sex ratio, and major occupations. Compare with national average and identify 2 areas needing improvement.',
+    mapTitle: 'Population Distribution in India',
+    mapType: 'india'
+  },
+  /* ====== CIVICS ====== */
+  {
+    id: 13, subject: 'civics', icon: '📜',
+    name: 'The Indian Constitution',
+    color: '#4f46e5',
+    learn: {
+      title: 'The Indian Constitution',
+      intro: 'The Constitution of India is the supreme law of the land. It was drafted by the Constituent Assembly and came into effect on January 26, 1950. It defines the framework of government and guarantees fundamental rights.',
+      points: [
+        'Constituent Assembly (1946-1949) drafted the Constitution; Dr. B.R. Ambedkar was Chairman of Drafting Committee.',
+        'Constitution came into effect on January 26, 1950 — celebrated as Republic Day.',
+        'Contains 448 Articles, 25 Parts, 12 Schedules, and 104 Amendments (as of 2020).',
+        'Fundamental Rights (Part III): Right to Equality, Freedom, Education, Constitutional Remedies.',
+        'Directive Principles (Part IV): guidelines for state policy for social welfare.'
+      ],
+      facts: [
+        { icon: '📜', val: '1950', lbl: 'Constitution Adopted' },
+        { icon: '📋', val: '448', lbl: 'Articles' },
+        { icon: '⚖️', val: '6', lbl: 'Fundamental Rights' },
+        { icon: '🗳️', val: '1952', lbl: 'First Elections' }
+      ]
+    },
+    timeline: [
+      { year: '1946', event: 'Constituent Assembly Formed', desc: 'Elected body to write India\'s Constitution; Dr. Rajendra Prasad elected President.' },
+      { year: '1947', event: 'India Becomes Independent', desc: 'India gained independence on August 15, 1947; Jawaharlal Nehru became PM.' },
+      { year: '26 Jan 1950', event: 'Constitution Comes into Effect', desc: 'India became a Republic; Constitution replaced Government of India Act 1935.' },
+      { year: '1952', event: 'First General Elections', desc: 'India conducted world\'s largest democratic elections; Congress party won.' },
+      { year: '1976', event: 'Preamble Amended', desc: '42nd Amendment added words "Socialist", "Secular", and "Integrity" to the Preamble.' }
+    ],
+    flashcards: [
+      { emoji: '📜', term: 'Preamble', def: 'Introduction to the Constitution stating India is a Sovereign, Socialist, Secular, Democratic Republic.' },
+      { emoji: '⚖️', term: 'Fundamental Rights', def: 'Six basic rights guaranteed by Constitution to every citizen; enforceable in courts.' },
+      { emoji: '🗺️', term: 'Federal System', def: 'Division of powers between Central and State governments as per Constitution.' },
+      { emoji: '🎓', term: 'Constituent Assembly', def: 'Body elected in 1946 to write India\'s Constitution; worked for nearly 3 years.' },
+      { emoji: '🔧', term: 'Constitutional Amendment', def: 'Process to modify the Constitution; requires special majority in Parliament.' }
+    ],
+    quiz: [
+      { q: 'Who was the Chairman of the Drafting Committee of the Constitution?', opts: ['Jawaharlal Nehru', 'Rajendra Prasad', 'B.R. Ambedkar', 'Sardar Patel'], ans: 2, icon: '📜' },
+      { q: 'India\'s Constitution came into effect on:', opts: ['15 August 1947', '26 January 1949', '26 January 1950', '26 November 1949'], ans: 2, icon: '🗓️' },
+      { q: 'How many Fundamental Rights are guaranteed by the Constitution?', opts: ['4', '5', '6', '7'], ans: 2, icon: '⚖️' },
+      { q: 'The Preamble describes India as:', opts: ['Federal Democratic Republic', 'Socialist Secular Democratic Republic', 'Parliamentary Republic', 'Constitutional Monarchy'], ans: 1, icon: '🏛️' },
+      { q: 'Right to Education (Article 21A) covers children aged:', opts: ['0-5 years', '5-10 years', '6-14 years', '6-18 years'], ans: 2, icon: '📚' }
+    ],
+    competency: [
+      { tag: 'CITIZENSHIP', q: 'Which Fundamental Rights do you use in your daily life? Give three examples with specific situations.' },
+      { tag: 'CRITICAL THINKING', q: 'Why is the Right to Constitutional Remedies called the "heart and soul" of the Constitution by Dr. Ambedkar?' }
+    ],
+    activity: 'Read the Preamble of the Constitution carefully. Write what each word/phrase means in simple language, and give one example from Indian society for each value.',
+    mapTitle: 'Government Structure of India',
+    mapType: 'government'
+  },
+  {
+    id: 14, subject: 'civics', icon: '🏛️',
+    name: 'Understanding Secularism',
+    color: '#4f46e5',
+    learn: {
+      title: 'Understanding Secularism',
+      intro: 'Secularism is one of the core principles of the Indian Constitution. It means the state does not have an official religion and treats all religions equally, neither promoting nor discriminating against any faith.',
+      points: [
+        'India is home to multiple religions: Hinduism, Islam, Christianity, Sikhism, Buddhism, Jainism.',
+        'Secularism in India ≠ separation of state from religion; it means equal treatment of all religions.',
+        'Government can intervene in religious practices if they violate fundamental rights (e.g., untouchability).',
+        'Minority rights are protected: minorities can establish educational institutions.',
+        'Communal harmony and religious tolerance are essential to Indian democracy.'
+      ],
+      facts: [
+        { icon: '🕌', val: '6+', lbl: 'Major Religions' },
+        { icon: '📜', val: '1976', lbl: '"Secular" Added' },
+        { icon: '⚖️', val: 'Art. 25-28', lbl: 'Religious Rights' },
+        { icon: '🏫', val: 'Art. 30', lbl: 'Minority Rights' }
+      ]
+    },
+    timeline: [
+      { year: '1947', event: 'India Partition', desc: 'Partition created communal violence; need for secular India became urgent.' },
+      { year: '1950', event: 'Religious Freedom in Constitution', desc: 'Articles 25-30 guaranteed freedom of religion and minority rights.' },
+      { year: '1976', event: 'Secular in Preamble', desc: '42nd Amendment officially added "Secular" to the Preamble of Constitution.' },
+      { year: '1992', event: 'Communal Incidents', desc: 'Need to strengthen secular values and communal harmony re-emphasised.' },
+      { year: '2020', event: 'Ongoing Challenges', desc: 'Protecting secular principles while navigating religious diversity remains crucial.' }
+    ],
+    flashcards: [
+      { emoji: '⚖️', term: 'Secularism', def: 'Government treats all religions equally; no official state religion; no discrimination based on faith.' },
+      { emoji: '🙏', term: 'Religious Freedom', def: 'Right to freely profess, practise, and propagate any religion guaranteed by Article 25.' },
+      { emoji: '🏫', term: 'Minority Rights', def: 'Religious and linguistic minorities have the right to establish and administer educational institutions.' },
+      { emoji: '🤝', term: 'Communal Harmony', def: 'Peaceful coexistence of people from different religious communities; essential to secular India.' },
+      { emoji: '⛔', term: 'Untouchability', def: 'Abolished by Article 17; discriminatory practice based on caste that violated human dignity.' }
+    ],
+    quiz: [
+      { q: 'The word "Secular" was added to India\'s Preamble in:', opts: ['1950', '1956', '1976', '1984'], ans: 2, icon: '📜' },
+      { q: 'Article 25 deals with:', opts: ['Right to Education', 'Freedom of Religion', 'Right to Equality', 'Right to Life'], ans: 1, icon: '⚖️' },
+      { q: 'Which article abolished untouchability?', opts: ['Article 14', 'Article 16', 'Article 17', 'Article 19'], ans: 2, icon: '⛔' },
+      { q: 'In Indian secularism, the state:', opts: ['Promotes Hinduism', 'Has no religion and treats all equally', 'Bans all religions', 'Only promotes major religions'], ans: 1, icon: '🏛️' },
+      { q: 'Minorities in India have the right to establish:', opts: ['Political parties only', 'Educational institutions', 'Separate courts', 'Own currency'], ans: 1, icon: '🏫' }
+    ],
+    competency: [
+      { tag: 'REFLECTION', q: 'How does secularism protect every citizen in India regardless of their religion? Give three practical examples.' },
+      { tag: 'REAL WORLD', q: 'Your town has a temple, mosque, church, and gurudwara on the same street. What does this tell you about Indian secularism?' }
+    ],
+    activity: 'Find examples of Indian secularism in your daily life (government holidays, currency, laws). Make a list of 5 examples showing how the state treats all religions equally.',
+    mapTitle: 'Religious Diversity of India',
+    mapType: 'concept'
+  },
+  {
+    id: 15, subject: 'civics', icon: '🏛️',
+    name: 'Why Do We Need a Parliament?',
+    color: '#4f46e5',
+    learn: {
+      title: 'Why Do We Need a Parliament?',
+      intro: 'Parliament is the supreme legislative body of India. It represents the will of the people through elected representatives and is essential for law-making, oversight of government, and democratic governance.',
+      points: [
+        'Indian Parliament has two houses: Lok Sabha (Lower) and Rajya Sabha (Upper).',
+        'Lok Sabha: 543 elected members; maximum 552; Speaker is presiding officer.',
+        'Rajya Sabha: 250 members; 12 nominated by President; Vice President is Chairman.',
+        'Parliament passes laws, approves budget, and holds government accountable.',
+        'Question Hour, Zero Hour, debates, and motions are tools of Parliamentary control.'
+      ],
+      facts: [
+        { icon: '🏛️', val: '543', lbl: 'Lok Sabha Seats' },
+        { icon: '⚙️', val: '250', lbl: 'Rajya Sabha Seats' },
+        { icon: '🗳️', val: '5 Yrs', lbl: 'Lok Sabha Term' },
+        { icon: '📋', val: '1952', lbl: 'First Parliament' }
+      ]
+    },
+    timeline: [
+      { year: '1952', event: 'First Indian Parliament', desc: 'After first general elections, Parliament of India constituted; Nehru became PM.' },
+      { year: '1971', event: 'Indira Gandhi\'s Landslide', desc: 'Congress won with massive majority; Parliament\'s role in democracy demonstrated.' },
+      { year: '1977', event: 'First Non-Congress Government', desc: 'Janata Party formed government; showed Parliament\'s accountability mechanism works.' },
+      { year: '2004', event: 'Coalition Government Era', desc: 'Rise of coalition politics; Parliament saw complex negotiations and alliances.' },
+      { year: '2014', event: 'Single-Party Majority Returns', desc: 'BJP won outright majority; shift in India\'s parliamentary politics.' }
+    ],
+    flashcards: [
+      { emoji: '🏛️', term: 'Lok Sabha', def: 'Lower house of Parliament; 543 elected members; maximum term 5 years; Speaker presides.' },
+      { emoji: '📋', term: 'Rajya Sabha', def: 'Upper house; 250 members; permanent house, not dissolved; Vice President is Chairman.' },
+      { emoji: '❓', term: 'Question Hour', def: 'First hour of each Parliament session when MPs question ministers about government activities.' },
+      { emoji: '📊', term: 'Budget Session', def: 'Parliament session where government presents annual budget; longest and most important session.' },
+      { emoji: '✋', term: 'No-Confidence Motion', def: 'If Parliament passes this, government must resign; key accountability mechanism.' }
+    ],
+    quiz: [
+      { q: 'How many elected seats are in the Lok Sabha?', opts: ['545', '543', '552', '500'], ans: 1, icon: '🏛️' },
+      { q: 'Who is the presiding officer of the Rajya Sabha?', opts: ['Speaker', 'Prime Minister', 'Vice President', 'President'], ans: 2, icon: '📋' },
+      { q: 'The term of the Lok Sabha is:', opts: ['3 years', '4 years', '5 years', '6 years'], ans: 2, icon: '🗓️' },
+      { q: 'During Question Hour, MPs can question:', opts: ['Judges', 'Ministers', 'Governors', 'Army chiefs'], ans: 1, icon: '❓' },
+      { q: 'Which house of Parliament is NEVER dissolved?', opts: ['Lok Sabha', 'Both houses', 'Rajya Sabha', 'Legislative Assembly'], ans: 2, icon: '📋' }
+    ],
+    competency: [
+      { tag: 'DEMOCRACY', q: 'How does Parliament ensure government accountability? Name and explain three specific mechanisms.' },
+      { tag: 'CITIZENSHIP', q: 'As a future voter, what would you look for in a parliamentary candidate? List your top 5 criteria with reasons.' }
+    ],
+    activity: 'Watch the live broadcast of Parliament session (Sansad TV/YouTube). Note: What issues were discussed? Which parties participated? How were decisions made?',
+    mapTitle: 'Structure of Indian Parliament',
+    mapType: 'government'
+  },
+  {
+    id: 16, subject: 'civics', icon: '⚖️',
+    name: 'Understanding Laws',
+    color: '#4f46e5',
+    learn: {
+      title: 'Understanding Laws',
+      intro: 'Laws are rules made by Parliament and state legislatures that govern society. They protect rights, ensure justice, and maintain order. Laws evolve as society changes.',
+      points: [
+        'Laws apply equally to all citizens — no one is above the law.',
+        'How laws are made: Bill introduced → discussed → voted → Presidential assent → Law.',
+        'Civil law deals with disputes between individuals; Criminal law deals with crimes against society.',
+        'Domestic Violence Act (2005), RTE Act (2009), RTI Act (2005) — recent landmark laws.',
+        'Citizens\' role: vote, pay taxes, obey laws, and demand accountability.'
+      ],
+      facts: [
+        { icon: '📚', val: '1000+', lbl: 'Central Laws' },
+        { icon: '⚖️', val: '1950', lbl: 'IPC Introduced' },
+        { icon: '📋', val: '2005', lbl: 'RTI Act' },
+        { icon: '📚', val: '2009', lbl: 'RTE Act' }
+      ]
+    },
+    timeline: [
+      { year: '1861', event: 'Indian Penal Code', desc: 'Comprehensive criminal code drafted under Macaulay; governed crimes and punishments.' },
+      { year: '1950', event: 'Constitution as Supreme Law', desc: 'Indian Constitution became supreme; all other laws must conform to it.' },
+      { year: '2005', event: 'RTI and DV Acts', desc: 'Right to Information Act and Domestic Violence Act passed; landmark for transparency and women\'s safety.' },
+      { year: '2009', event: 'Right to Education Act', desc: 'Free and compulsory education for children 6-14 years guaranteed by law.' },
+      { year: '2013', event: 'POCSO Act', desc: 'Protection of Children from Sexual Offences Act strengthened child safety laws.' }
+    ],
+    flashcards: [
+      { emoji: '📋', term: 'Bill', def: 'A proposed law presented in Parliament for discussion; becomes an Act when passed and approved.' },
+      { emoji: '🔍', term: 'RTI Act 2005', def: 'Right to Information Act allowing citizens to request information from government offices.' },
+      { emoji: '📚', term: 'RTE Act 2009', def: 'Right to Education Act making free education compulsory for children aged 6-14 years.' },
+      { emoji: '⚖️', term: 'Rule of Law', def: 'No one is above the law; even government officials must follow laws; cornerstone of democracy.' },
+      { emoji: '🏛️', term: 'Judiciary', def: 'Independent system of courts that interprets laws and resolves disputes; Supreme Court is highest.' }
+    ],
+    quiz: [
+      { q: 'The RTI Act was passed in which year?', opts: ['2000', '2003', '2005', '2007'], ans: 2, icon: '🔍' },
+      { q: 'A Bill becomes a law after:', opts: ['Speaker\'s approval', 'PM\'s signature', 'Presidential assent', 'Supreme Court approval'], ans: 2, icon: '📋' },
+      { q: 'RTE Act provides free education for children aged:', opts: ['0-6 years', '5-12 years', '6-14 years', '6-18 years'], ans: 2, icon: '📚' },
+      { q: 'Rule of Law means:', opts: ['Rulers make the laws', 'Law applies equally to all', 'Police enforce all laws', 'Parliament is supreme'], ans: 1, icon: '⚖️' },
+      { q: 'Which court is the highest court in India?', opts: ['High Court', 'District Court', 'Supreme Court', 'Sessions Court'], ans: 2, icon: '🏛️' }
+    ],
+    competency: [
+      { tag: 'REAL LIFE', q: 'How can the RTI Act help ordinary citizens? Give two real-life scenarios where it could be useful.' },
+      { tag: 'RIGHTS', q: 'A 10-year-old is working in a shop instead of attending school. Which law is being violated? What action can be taken?' }
+    ],
+    activity: 'Using RTI Act knowledge, draft a sample RTI application to your school or local government asking for information about a public service (road condition, school funds, etc.).',
+    mapTitle: 'Indian Judicial System',
+    mapType: 'government'
+  },
+  {
+    id: 17, subject: 'civics', icon: '👩',
+    name: 'Confronting Marginalisation',
+    color: '#4f46e5',
+    learn: {
+      title: 'Confronting Marginalisation',
+      intro: 'Marginalisation refers to the process by which certain groups are pushed to the edges of society, denied opportunities, and treated as less important. Dalits, Adivasis, and women have faced historical marginalisation in India.',
+      points: [
+        'Dalits (Scheduled Castes) faced untouchability and caste discrimination for centuries.',
+        'Adivasis (Scheduled Tribes) lost lands and resources due to colonial and post-colonial policies.',
+        'Dr. B.R. Ambedkar championed the rights of Dalits; drafted Constitution with anti-discrimination clauses.',
+        'Reservations in education and jobs help address historical inequalities.',
+        'Constitutional provisions: Article 17 (untouchability abolished), Articles 15, 16, 46.'
+      ],
+      facts: [
+        { icon: '👥', val: '16.6%', lbl: 'Dalit Population' },
+        { icon: '🌲', val: '8.6%', lbl: 'Adivasi Population' },
+        { icon: '📋', val: '1989', lbl: 'SC/ST Act' },
+        { icon: '🎓', val: '7.5%', lbl: 'ST Reservation' }
+      ]
+    },
+    timeline: [
+      { year: '1932', event: 'Poona Pact', desc: 'Dr. Ambedkar and Gandhi agreed on reserved seats for Dalits in legislatures.' },
+      { year: '1950', event: 'Constitutional Protections', desc: 'Constitution abolished untouchability; provided reservations and equal rights to marginalised groups.' },
+      { year: '1955', event: 'Untouchability Offences Act', desc: 'Made practice of untouchability punishable; later strengthened as Protection of Civil Rights Act.' },
+      { year: '1989', event: 'SC/ST Atrocities Act', desc: 'Prevention of Atrocities Act protected Dalits and Adivasis from violence and discrimination.' },
+      { year: '2006', event: 'Forest Rights Act', desc: 'Recognised rights of Adivasi communities over forests and lands they traditionally occupied.' }
+    ],
+    flashcards: [
+      { emoji: '👥', term: 'Marginalisation', def: 'Process of pushing certain groups to the fringes of society; denying them power, resources, and opportunities.' },
+      { emoji: '⛔', term: 'Untouchability', def: 'Discriminatory practice against Dalits; abolished by Article 17 of Constitution.' },
+      { emoji: '📊', term: 'Reservations', def: 'Policy of allocating seats in education and employment for SC, ST, and OBC communities.' },
+      { emoji: '🦁', term: 'Dalit Panthers', def: 'Militant movement founded in 1972 demanding rights and dignity for Dalit communities.' },
+      { emoji: '🌲', term: 'Adivasi', def: 'Indigenous tribal communities; have distinct cultures and languages; face displacement and poverty.' }
+    ],
+    quiz: [
+      { q: 'Which Article of the Constitution abolished untouchability?', opts: ['Article 14', 'Article 15', 'Article 17', 'Article 21'], ans: 2, icon: '⛔' },
+      { q: 'The SC/ST (Prevention of Atrocities) Act was passed in:', opts: ['1979', '1985', '1989', '1995'], ans: 2, icon: '📋' },
+      { q: 'Dr. B.R. Ambedkar belonged to which community?', opts: ['OBC', 'Scheduled Tribe', 'Scheduled Caste', 'General'], ans: 2, icon: '🎓' },
+      { q: 'Dalit Panthers were inspired by:', opts: ['Gandhian movement', 'Black Panthers of USA', 'Communist movement', 'Nehru\'s socialism'], ans: 1, icon: '🦁' },
+      { q: 'Forest Rights Act 2006 was passed to protect the rights of:', opts: ['Forest officials', 'Adivasi communities', 'Wildlife', 'Environmentalists'], ans: 1, icon: '🌲' }
+    ],
+    competency: [
+      { tag: 'EMPATHY', q: 'Read about Dr. Ambedkar\'s life. What obstacles did he face due to caste discrimination? How did he overcome them?' },
+      { tag: 'POLICY ANALYSIS', q: 'Do reservations promote equality or inequality? Present both sides of this debate with evidence.' }
+    ],
+    activity: 'Research an inspiring leader from a marginalised community (Dr. Ambedkar, Savitribai Phule, Birsa Munda, Mary Kom). Write a one-page biography focusing on challenges they overcame.',
+    mapTitle: 'Distribution of SC/ST in India',
+    mapType: 'concept'
+  },
+  {
+    id: 18, subject: 'civics', icon: '🌍',
+    name: 'Public Facilities',
+    color: '#4f46e5',
+    learn: {
+      title: 'Public Facilities',
+      intro: 'Public facilities are services and infrastructure provided by the government for the benefit of all citizens. They include water, electricity, health, education, transport, and sanitation. Ensuring equal access to public facilities is a key function of democratic governments.',
+      points: [
+        'Public facilities are essential for human dignity and development.',
+        'Water, sanitation, health, education, and electricity are basic public facilities.',
+        'Government is responsible for providing public facilities; market alone cannot ensure access for all.',
+        'Urban-rural disparity in public facilities remains a major challenge in India.',
+        'Citizens have the right to demand better public facilities from their elected representatives.'
+      ],
+      facts: [
+        { icon: '💧', val: '163M', lbl: 'No Safe Water' },
+        { icon: '💡', val: '99%', lbl: 'Village Electrification' },
+        { icon: '🏥', val: '1:1445', lbl: 'Doctor Ratio' },
+        { icon: '📚', val: '96%', lbl: 'Primary Enrolment' }
+      ]
+    },
+    timeline: [
+      { year: '1951', event: 'Five Year Plans Begin', desc: 'India began planned development; government investment in public facilities started.' },
+      { year: '2005', event: 'NREGS / MGNREGA', desc: 'Employment guarantee scheme providing 100 days of work; improved rural incomes and infrastructure.' },
+      { year: '2014', event: 'Swachh Bharat Mission', desc: 'Clean India mission to build toilets and end open defecation; 110 million toilets built.' },
+      { year: '2018', event: 'Saubhagya Scheme', desc: 'Government aimed to provide electricity to every household by 2018.' },
+      { year: '2022', event: 'Jal Jeevan Mission', desc: 'Programme to provide tap water connection to every rural household by 2024.' }
+    ],
+    flashcards: [
+      { emoji: '💧', term: 'Public Facility', def: 'Services provided by government for citizens\' welfare; water, health, education, transport.' },
+      { emoji: '🏥', term: 'Primary Health Centre', def: 'Government clinic providing basic healthcare in rural areas; first point of health contact.' },
+      { emoji: '🚽', term: 'Swachh Bharat Mission', desc: 'National cleanliness mission launched in 2014 to build toilets and ensure sanitation for all.', def: 'National cleanliness mission launched in 2014; aimed to build toilets for all households.' },
+      { emoji: '🌊', term: 'Jal Jeevan Mission', def: 'Government scheme to provide tap water to every rural household; launched in 2019.' },
+      { emoji: '💡', term: 'Saubhagya Scheme', def: 'Pradhan Mantri Sahaj Bijli Har Ghar Yojana to electrify every household in India.' }
+    ],
+    quiz: [
+      { q: 'Which scheme provides employment guarantee for 100 days?', opts: ['PMAY', 'MGNREGA', 'Swachh Bharat', 'JAM'], ans: 1, icon: '💼' },
+      { q: 'Swachh Bharat Mission focuses mainly on:', opts: ['Electricity', 'Roads', 'Sanitation and toilets', 'Water supply'], ans: 2, icon: '🚽' },
+      { q: 'Why can\'t markets alone provide all public facilities?', opts: ['Markets are slow', 'Poor cannot afford market rates', 'Markets have no infrastructure', 'Government controls markets'], ans: 1, icon: '⚖️' },
+      { q: 'Jal Jeevan Mission aims to provide __ to rural households:', opts: ['Electricity', 'LPG connections', 'Tap water', 'Internet'], ans: 2, icon: '💧' },
+      { q: 'Primary Health Centres (PHCs) are mainly located in:', opts: ['Cities', 'Metropolitan areas', 'Rural areas', 'Industrial zones'], ans: 2, icon: '🏥' }
+    ],
+    competency: [
+      { tag: 'LOCAL SURVEY', q: 'Survey public facilities in your locality: water supply, electricity, healthcare, and schools. Rate each on a scale of 1-5 and suggest improvements.' },
+      { tag: 'CITIZENSHIP', q: 'If your area faces poor water supply, what steps as a citizen can you take? Who would you approach and what would you demand?' }
+    ],
+    activity: 'Visit the nearest government school and health centre in your area. List what facilities they have and what is missing. Write a letter to your local councillor requesting improvements.',
+    mapTitle: 'Public Facilities in India',
+    mapType: 'concept'
+  }
+];
+
+/* ============================================================
+   BADGES
+   ============================================================ */
+const BADGES = [
+  { id: 'first_explore', icon: '🔭', name: 'First Explorer', desc: 'Open first chapter' },
+  { id: 'historian', icon: '📜', name: 'Historian', desc: 'Complete all History chapters' },
+  { id: 'geographer', icon: '🌍', name: 'Geographer', desc: 'Complete all Geography chapters' },
+  { id: 'civics_hero', icon: '⚖️', name: 'Civics Hero', desc: 'Complete all Civics chapters' },
+  { id: 'quiz_ace', icon: '🏆', name: 'Quiz Ace', desc: 'Score 100% in any quiz' },
+  { id: 'master', icon: '🎓', name: 'Master Scholar', desc: 'Complete all 18 chapters' }
+];
+
+/* ============================================================
+   STATE
+   ============================================================ */
+let currentChapter = 0;
+let currentTab = 'learn';
+let quizState = { q: 0, score: 0, answered: false };
+let vocabState = { idx: 0, flipped: false };
+let randomQuizState = { questions: [], q: 0, score: 0, answered: false };
+let isDark = true;
+
+function loadProgress() {
+  try { return JSON.parse(localStorage.getItem('jkbose_cl8_sst')) || {}; }
+  catch { return {}; }
+}
+
+function saveProgress(d) {
+  localStorage.setItem('jkbose_cl8_sst', JSON.stringify(d));
+}
+
+let progress = loadProgress();
+
+function getCP(id) {
+  return progress[`ch_${id}`] || { stars: 0, done: false, quizDone: false };
+}
+
+function setCP(id, data) {
+  progress[`ch_${id}`] = { ...getCP(id), ...data };
+  saveProgress(progress);
+  updateHomeStats();
+}
+
+function getTotalStars() {
+  return CHAPTERS.reduce((s, ch) => s + (getCP(ch.id).stars || 0), 0);
+}
+
+function getBookmarks() { return progress.bookmarks || []; }
+
+function toggleBookmarkCh(id) {
+  let bm = getBookmarks();
+  const i = bm.indexOf(id);
+  i > -1 ? bm.splice(i, 1) : bm.push(id);
+  progress.bookmarks = bm;
+  saveProgress(progress);
+}
+
+/* ============================================================
+   SCREEN NAV
+   ============================================================ */
+function showScreen(id) {
+  document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  window.scrollTo(0, 0);
+  if (id === 'home-screen') updateHomeStats();
+  if (id === 'chapters-screen') renderChapterList('all');
+}
+
+function updateHomeStats() {
+  const stars = getTotalStars();
+  const done = CHAPTERS.filter(ch => getCP(ch.id).done).length;
+  const quizzes = CHAPTERS.filter(ch => getCP(ch.id).quizDone).length;
+  const pct = Math.round((done / CHAPTERS.length) * 100);
+
+  document.getElementById('home-stars').textContent = stars;
+  document.getElementById('st-chapters').textContent = done;
+  document.getElementById('st-stars').textContent = stars;
+  document.getElementById('st-quizzes').textContent = quizzes;
+  document.getElementById('overall-bar').style.width = pct + '%';
+  document.getElementById('overall-label').textContent = `${pct}% complete · ${done} of ${CHAPTERS.length} chapters`;
+
+  // Recent chapters
+  const rc = document.getElementById('recent-list');
+  if (rc) {
+    rc.innerHTML = CHAPTERS.slice(0, 4).map(ch => {
+      const cp = getCP(ch.id);
+      const subjectColors = { history: '#e11d48', geography: '#059669', civics: '#4f46e5' };
+      return `<div style="background:var(--card);border:1px solid rgba(255,255,255,0.07);border-radius:12px;padding:12px 14px;margin-bottom:8px;display:flex;align-items:center;gap:12px;cursor:pointer;border-left:3px solid ${subjectColors[ch.subject]}" onclick="openChapter(${ch.id-1})">
+        <span style="font-size:1.5rem">${ch.icon}</span>
+        <div style="flex:1">
+          <div style="font-size:0.85rem;font-weight:700;color:var(--white)">${ch.name}</div>
+          <div style="font-size:0.7rem;color:var(--muted);font-family:Courier New,monospace;margin-top:2px">${ch.subject.toUpperCase()} · ${cp.done ? '✅ Done' : '📖 Not started'}</div>
+        </div>
+        <div style="color:var(--amber);font-size:0.85rem">${'⭐'.repeat(cp.stars||0)}</div>
+      </div>`;
+    }).join('');
+  }
+}
+
+/* ============================================================
+   TITLE SCREEN STARS
+   ============================================================ */
+function initStarField() {
+  const field = document.getElementById('star-field');
+  if (!field) return;
+  for (let i = 0; i < 80; i++) {
+    const s = document.createElement('div');
+    s.className = 'star';
+    const size = Math.random() * 2.5 + 0.5;
+    s.style.cssText = `
+      left:${Math.random()*100}%;top:${Math.random()*100}%;
+      width:${size}px;height:${size}px;
+      animation-duration:${2+Math.random()*4}s;
+      animation-delay:${Math.random()*3}s;
+    `;
+    field.appendChild(s);
+  }
+}
+
+/* ============================================================
+   CHAPTER LIST
+   ============================================================ */
+function renderChapterList(filter) {
+  document.getElementById('ch-stars').textContent = getTotalStars();
+  const list = document.getElementById('chapter-list');
+  if (!list) return;
+  const filtered = filter === 'all' ? CHAPTERS : CHAPTERS.filter(ch => ch.subject === filter);
+  list.innerHTML = filtered.map(ch => {
+    const cp = getCP(ch.id);
+    return `<div class="chapter-item ${ch.subject}" onclick="openChapter(${ch.id-1})">
+      <div class="ch-icon-wrap">${ch.icon}</div>
+      <div class="ch-info">
+        <div class="ch-num">${ch.subject.toUpperCase()} · CH. ${ch.id}</div>
+        <div class="ch-name">${ch.name}</div>
+      </div>
+      <div class="ch-done-badge ${cp.done?'done-badge':'pending-badge'}">${cp.done?'✅ Done':'📖'}</div>
+    </div>`;
+  }).join('');
+}
+
+function filterChapters(filter, btn) {
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+  renderChapterList(filter);
+}
+
+/* ============================================================
+   OPEN CHAPTER
+   ============================================================ */
+function openChapter(idx) {
+  currentChapter = idx;
+  const ch = CHAPTERS[idx];
+  document.getElementById('ch-screen-title').textContent = ch.name;
+  document.getElementById('bm-btn').textContent = getBookmarks().includes(ch.id) ? '🌟' : '🔖';
+  setCP(ch.id, { done: true });
+
+  // Render all tabs
+  renderLearnTab(ch);
+  renderTimelineTab(ch);
+  renderMapTab(ch);
+  renderFlashcardsTab(ch);
+  renderQuizTab(ch);
+  renderCompTab(ch);
+  renderNotesTab(ch);
+  showTab('learn');
+  showScreen('chapter-screen');
+}
+
+function showTab(tab) {
+  currentTab = tab;
+  document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById(`tab-${tab}`).classList.add('active');
+  document.querySelector(`[data-tab="${tab}"]`).classList.add('active');
+}
+
+function toggleBookmark() {
+  const ch = CHAPTERS[currentChapter];
+  toggleBookmarkCh(ch.id);
+  document.getElementById('bm-btn').textContent = getBookmarks().includes(ch.id) ? '🌟' : '🔖';
+}
+
+/* ============================================================
+   LEARN TAB
+   ============================================================ */
+function renderLearnTab(ch) {
+  const el = document.getElementById('tab-learn');
+  const factsHTML = ch.learn.facts.map(f => `
+    <div class="info-box">
+      <span class="ib-icon">${f.icon}</span>
+      <div class="ib-val">${f.val}</div>
+      <div class="ib-lbl">${f.lbl}</div>
+    </div>`).join('');
+
+  const pointsHTML = ch.learn.points.map(p => `
+    <div class="kp-item">
+      <div class="kp-dot"></div>
+      <span>${p}</span>
+    </div>`).join('');
+
+  el.innerHTML = `
+    <div class="concept-card">
+      <h3>${ch.icon} ${ch.learn.title}</h3>
+      <p>${ch.learn.intro}</p>
+    </div>
+    <div class="info-grid">${factsHTML}</div>
+    <div class="concept-card">
+      <h3>📌 Key Points</h3>
+      <div class="key-points">${pointsHTML}</div>
+    </div>
+    <div class="activity-card">
+      <h4>🎯 Mini Activity</h4>
+      <p>${ch.activity}</p>
+    </div>
+    <div style="text-align:center;padding:8px 0 16px">
+      <button class="btn btn-amber" onclick="showTab('flash')">Next: Flashcards →</button>
+    </div>`;
+}
+
+/* ============================================================
+   TIMELINE TAB
+   ============================================================ */
+function renderTimelineTab(ch) {
+  const el = document.getElementById('tab-timeline');
+  const tlHTML = ch.timeline.map(t => `
+    <div class="tl-item">
+      <div class="tl-dot"></div>
+      <div class="tl-year">${t.year}</div>
+      <div class="tl-event">${t.event}</div>
+      <div class="tl-desc">${t.desc}</div>
+    </div>`).join('');
+
+  el.innerHTML = `
+    <div class="concept-card">
+      <h3>⏳ Historical Timeline</h3>
+      <div class="timeline" style="margin-top:8px">${tlHTML}</div>
+    </div>
+    <div style="text-align:center;padding:8px 0 16px">
+      <button class="btn btn-teal" onclick="showTab('map')">Next: Map/Diagram →</button>
+    </div>`;
+}
+
+/* ============================================================
+   MAP TAB
+   ============================================================ */
+function renderMapTab(ch) {
+  const el = document.getElementById('tab-map');
+  let mapContent = '';
+
+  if (ch.mapType === 'india') {
+    mapContent = renderIndiaMapSVG(ch.subject);
+  } else if (ch.mapType === 'government') {
+    mapContent = renderGovtDiagram(ch);
+  } else if (ch.mapType === 'expansion') {
+    mapContent = renderExpansionMap();
+  } else {
+    mapContent = renderConceptDiagram(ch);
+  }
+
+  el.innerHTML = `
+    <div class="map-container">
+      <div class="map-title">🗺️ ${ch.mapTitle}</div>
+      ${mapContent}
+    </div>
+    <div style="text-align:center;padding:8px 0 16px">
+      <button class="btn btn-indigo" onclick="showTab('quiz')">Next: Quiz →</button>
+    </div>`;
+}
+
+function renderIndiaMapSVG(subject) {
+  const colors = {
+    history: ['#e11d48','#f43f5e','#fb7185'],
+    geography: ['#059669','#10b981','#34d399'],
+    civics: ['#4f46e5','#6366f1','#818cf8']
+  };
+  const c = colors[subject];
+
+  // SVG simplified India outline with major regions
+  return `<svg viewBox="0 0 400 450" xmlns="http://www.w3.org/2000/svg" style="width:100%;max-height:350px">
+    <defs>
+      <filter id="glow"><feGaussianBlur stdDeviation="3" result="blur"/><feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+    </defs>
+    <!-- India simplified shape -->
+    <polygon points="180,20 220,20 260,40 290,70 310,110 320,150 310,200 290,240 260,280 220,330 200,400 180,400 160,330 130,280 100,240 80,200 70,150 80,110 100,70 130,40" 
+      fill="${c[0]}33" stroke="${c[0]}" stroke-width="2"/>
+    <!-- Regions -->
+    <ellipse cx="200" cy="100" rx="50" ry="35" fill="${c[0]}44" stroke="${c[1]}" stroke-width="1.5"/>
+    <text x="200" y="105" text-anchor="middle" fill="${c[2]}" font-size="10" font-weight="bold">North India</text>
+    <ellipse cx="160" cy="200" rx="40" ry="30" fill="${c[1]}33" stroke="${c[1]}" stroke-width="1.5"/>
+    <text x="160" y="205" text-anchor="middle" fill="${c[2]}" font-size="9">West India</text>
+    <ellipse cx="240" cy="200" rx="40" ry="30" fill="${c[0]}44" stroke="${c[0]}" stroke-width="1.5"/>
+    <text x="240" y="205" text-anchor="middle" fill="${c[2]}" font-size="9">East India</text>
+    <ellipse cx="200" cy="300" rx="35" ry="30" fill="${c[1]}44" stroke="${c[1]}" stroke-width="1.5"/>
+    <text x="200" y="305" text-anchor="middle" fill="${c[2]}" font-size="9">South India</text>
+    <!-- Dots for major cities -->
+    ${[['Delhi',195,88],['Mumbai',155,230],['Kolkata',255,195],['Chennai',215,320],['Bengaluru',200,330],['Hyderabad',205,275]].map(([name,x,y]) => `
+      <circle cx="${x}" cy="${y}" r="4" fill="${c[0]}" filter="url(#glow)" cursor="pointer"/>
+      <text x="${x+8}" y="${y+4}" fill="${c[2]}" font-size="8">${name}</text>
+    `).join('')}
+    <!-- Compass -->
+    <text x="20" y="30" fill="rgba(255,255,255,0.5)" font-size="10">N↑</text>
+  </svg>
+  <div style="font-size:0.72rem;color:var(--muted);text-align:center;margin-top:8px;font-family:Courier New,monospace">Interactive map — key locations highlighted in ${subject}</div>`;
+}
+
+function renderGovtDiagram(ch) {
+  if (ch.name.includes('Parliament')) {
+    return `<svg viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+      <rect x="100" y="10" width="200" height="50" rx="10" fill="#4f46e533" stroke="#4f46e5" stroke-width="1.5"/>
+      <text x="200" y="40" text-anchor="middle" fill="#818cf8" font-size="13" font-weight="bold">PARLIAMENT OF INDIA</text>
+      <line x1="200" y1="60" x2="120" y2="110" stroke="#4f46e5" stroke-width="1.5"/>
+      <line x1="200" y1="60" x2="280" y2="110" stroke="#4f46e5" stroke-width="1.5"/>
+      <rect x="30" y="110" width="170" height="50" rx="10" fill="#e11d4833" stroke="#e11d48" stroke-width="1.5"/>
+      <text x="115" y="132" text-anchor="middle" fill="#fb7185" font-size="11" font-weight="bold">LOK SABHA</text>
+      <text x="115" y="147" text-anchor="middle" fill="#fb7185" font-size="9">543 Elected Members</text>
+      <rect x="200" y="110" width="170" height="50" rx="10" fill="#05966933" stroke="#059669" stroke-width="1.5"/>
+      <text x="285" y="132" text-anchor="middle" fill="#34d399" font-size="11" font-weight="bold">RAJYA SABHA</text>
+      <text x="285" y="147" text-anchor="middle" fill="#34d399" font-size="9">250 Members</text>
+      <text x="115" y="190" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="9">5 Year Term</text>
+      <text x="285" y="190" text-anchor="middle" fill="rgba(255,255,255,0.6)" font-size="9">Permanent House</text>
+      <!-- Functions -->
+      <rect x="50" y="210" width="300" height="70" rx="10" fill="#1e293b" stroke="rgba(255,255,255,0.15)" stroke-width="1"/>
+      <text x="200" y="228" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="bold">KEY FUNCTIONS</text>
+      <text x="80" y="245" fill="rgba(255,255,255,0.7)" font-size="9">✦ Passes Laws</text>
+      <text x="80" y="260" fill="rgba(255,255,255,0.7)" font-size="9">✦ Approves Budget</text>
+      <text x="230" y="245" fill="rgba(255,255,255,0.7)" font-size="9">✦ Questions Ministers</text>
+      <text x="230" y="260" fill="rgba(255,255,255,0.7)" font-size="9">✦ Debates Policies</text>
+    </svg>`;
+  }
+  // Generic government diagram
+  return `<svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+    <rect x="120" y="10" width="160" height="45" rx="10" fill="#4f46e533" stroke="#4f46e5" stroke-width="1.5"/>
+    <text x="200" y="36" text-anchor="middle" fill="#818cf8" font-size="12" font-weight="bold">CONSTITUTION</text>
+    <line x1="200" y1="55" x2="100" y2="100" stroke="#4f46e5" stroke-width="1.5" stroke-dasharray="4"/>
+    <line x1="200" y1="55" x2="200" y2="100" stroke="#4f46e5" stroke-width="1.5" stroke-dasharray="4"/>
+    <line x1="200" y1="55" x2="300" y2="100" stroke="#4f46e5" stroke-width="1.5" stroke-dasharray="4"/>
+    <rect x="30" y="100" width="120" height="40" rx="8" fill="#e11d4822" stroke="#e11d48" stroke-width="1"/>
+    <text x="90" y="118" text-anchor="middle" fill="#fb7185" font-size="10" font-weight="bold">LEGISLATURE</text>
+    <text x="90" y="131" text-anchor="middle" fill="#fb7185" font-size="8">Makes Laws</text>
+    <rect x="140" y="100" width="120" height="40" rx="8" fill="#05966922" stroke="#059669" stroke-width="1"/>
+    <text x="200" y="118" text-anchor="middle" fill="#34d399" font-size="10" font-weight="bold">EXECUTIVE</text>
+    <text x="200" y="131" text-anchor="middle" fill="#34d399" font-size="8">Implements Laws</text>
+    <rect x="250" y="100" width="120" height="40" rx="8" fill="#f59e0b22" stroke="#f59e0b" stroke-width="1"/>
+    <text x="310" y="118" text-anchor="middle" fill="#f59e0b" font-size="10" font-weight="bold">JUDICIARY</text>
+    <text x="310" y="131" text-anchor="middle" fill="#f59e0b" font-size="8">Interprets Laws</text>
+  </svg>`;
+}
+
+function renderConceptDiagram(ch) {
+  // Generic concept web for non-map chapters
+  const points = ch.learn.points.slice(0, 4);
+  const icons = ['📌', '🔍', '💡', '⚡'];
+  const colors = ['#e11d48', '#059669', '#4f46e5', '#f59e0b'];
+  return `<svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+    <circle cx="200" cy="160" r="50" fill="${ch.color}22" stroke="${ch.color}" stroke-width="1.5"/>
+    <text x="200" y="155" text-anchor="middle" fill="${ch.color.replace('22','')}" font-size="1.5em">${ch.icon}</text>
+    <text x="200" y="175" text-anchor="middle" fill="rgba(255,255,255,0.8)" font-size="9">${ch.name.slice(0,16)}...</text>
+    ${[[80,50],[320,50],[80,270],[320,270]].map(([x,y],i) => `
+      <line x1="${x}" y1="${y}" x2="200" y2="160" stroke="${colors[i]}55" stroke-width="1" stroke-dasharray="4"/>
+      <rect x="${x-60}" y="${y-25}" width="120" height="50" rx="8" fill="${colors[i]}22" stroke="${colors[i]}" stroke-width="1"/>
+      <text x="${x}" y="${y-10}" text-anchor="middle" fill="${colors[i]}" font-size="9">${icons[i]}</text>
+      <text x="${x}" y="${y+5}" text-anchor="middle" fill="rgba(255,255,255,0.75)" font-size="7" width="110">${(points[i]||'').slice(0,30)}...</text>
+    `).join('')}
+  </svg>`;
+}
+
+function renderExpansionMap() {
+  return `<svg viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg" style="width:100%">
+    <text x="200" y="20" text-anchor="middle" fill="#f59e0b" font-size="11" font-weight="bold">British Expansion in India (1750-1856)</text>
+    <!-- India simplified -->
+    <polygon points="180,30 220,30 255,55 275,90 285,130 275,175 255,210 220,260 200,310 180,310 160,260 125,210 105,175 95,130 105,90 125,55" fill="#1e293b" stroke="#334155" stroke-width="1.5"/>
+    <!-- Phase 1 - Bengal (1757) -->
+    <ellipse cx="240" cy="130" rx="28" ry="22" fill="#e11d4855" stroke="#e11d48" stroke-width="1.5"/>
+    <text x="240" y="128" text-anchor="middle" fill="#fb7185" font-size="8" font-weight="bold">Bengal</text>
+    <text x="240" y="140" text-anchor="middle" fill="#fb7185" font-size="7">1757</text>
+    <!-- Phase 2 - South (1799) -->
+    <ellipse cx="195" cy="250" rx="25" ry="18" fill="#f59e0b55" stroke="#f59e0b" stroke-width="1.5"/>
+    <text x="195" y="248" text-anchor="middle" fill="#fbbf24" font-size="8" font-weight="bold">Mysore</text>
+    <text x="195" y="260" text-anchor="middle" fill="#fbbf24" font-size="7">1799</text>
+    <!-- Phase 3 - North (1849) -->
+    <ellipse cx="185" cy="70" rx="25" ry="18" fill="#4f46e555" stroke="#4f46e5" stroke-width="1.5"/>
+    <text x="185" y="68" text-anchor="middle" fill="#818cf8" font-size="8" font-weight="bold">Punjab</text>
+    <text x="185" y="80" text-anchor="middle" fill="#818cf8" font-size="7">1849</text>
+    <!-- Legend -->
+    <rect x="10" y="250" width="115" height="60" rx="6" fill="#1e293b" stroke="#334155" stroke-width="1"/>
+    <text x="68" y="264" text-anchor="middle" fill="#94a3b8" font-size="8" font-weight="bold">LEGEND</text>
+    <circle cx="22" cy="276" r="5" fill="#e11d48"/>
+    <text x="30" y="279" fill="#94a3b8" font-size="7">1757 — Bengal (Plassey)</text>
+    <circle cx="22" cy="290" r="5" fill="#f59e0b"/>
+    <text x="30" y="293" fill="#94a3b8" font-size="7">1799 — South (Mysore)</text>
+    <circle cx="22" cy="304" r="5" fill="#4f46e5"/>
+    <text x="30" y="307" fill="#94a3b8" font-size="7">1849 — North (Punjab)</text>
+  </svg>`;
+}
+
+/* ============================================================
+   FLASHCARDS TAB
+   ============================================================ */
+function renderFlashcardsTab(ch) {
+  vocabState = { idx: 0, flipped: false };
+  updateFC(ch);
+}
+
+function updateFC(ch) {
+  const el = document.getElementById('tab-flash');
+  const fc = ch.flashcards[vocabState.idx];
+  const dotsHTML = ch.flashcards.map((_, i) => `<div class="fc-dot ${i===vocabState.idx?'active':''}"></div>`).join('');
+
+  el.innerHTML = `
+    <div style="text-align:center;margin-bottom:6px;font-size:0.72rem;color:var(--muted);font-family:Courier New,monospace">Tap card to reveal definition</div>
+    <div class="fc-scene" onclick="flipFC()">
+      <div class="fc-card ${vocabState.flipped?'flipped':''}">
+        <div class="fc-face fc-front">
+          <span class="fc-emoji">${fc.emoji}</span>
+          <div class="fc-term">${fc.term}</div>
+          <div class="fc-hint">Tap to flip →</div>
+        </div>
+        <div class="fc-face fc-back">
+          <span class="fc-emoji">${fc.emoji}</span>
+          <div class="fc-def">${fc.def}</div>
+        </div>
+      </div>
+    </div>
+    <div class="fc-dots">${dotsHTML}</div>
+    <div class="fc-nav-row">
+      <button class="fc-nav-btn" onclick="prevFC()">◀</button>
+      <span class="fc-counter">${vocabState.idx+1} / ${ch.flashcards.length}</span>
+      <button class="fc-nav-btn" onclick="nextFC()">▶</button>
+    </div>
+    <div style="display:flex;flex-wrap:wrap;gap:8px;padding:12px 0;justify-content:center">
+      ${ch.flashcards.map((f,i) => `<span style="background:${i===vocabState.idx?'var(--amber)':'rgba(255,255,255,0.08)'};color:${i===vocabState.idx?'#0f172a':'var(--muted)'};border-radius:20px;padding:4px 12px;font-size:0.72rem;cursor:pointer;font-family:Courier New,monospace" onclick="jumpFC(${i})">${f.term}</span>`).join('')}
+    </div>
+    <div style="text-align:center;padding:0 0 16px">
+      <button class="btn btn-amber" onclick="showTab('quiz')">Next: Quiz →</button>
+    </div>`;
+}
+
+function flipFC() {
+  vocabState.flipped = !vocabState.flipped;
+  const card = document.querySelector('.fc-card');
+  if (card) card.classList.toggle('flipped');
+}
+
+function prevFC() {
+  const ch = CHAPTERS[currentChapter];
+  vocabState.idx = (vocabState.idx - 1 + ch.flashcards.length) % ch.flashcards.length;
+  vocabState.flipped = false;
+  updateFC(ch);
+}
+
+function nextFC() {
+  const ch = CHAPTERS[currentChapter];
+  vocabState.idx = (vocabState.idx + 1) % ch.flashcards.length;
+  vocabState.flipped = false;
+  updateFC(ch);
+}
+
+function jumpFC(i) {
+  const ch = CHAPTERS[currentChapter];
+  vocabState.idx = i;
+  vocabState.flipped = false;
+  updateFC(ch);
+}
+
+/* ============================================================
+   QUIZ TAB
+   ============================================================ */
+function renderQuizTab(ch) {
+  quizState = { q: 0, score: 0, answered: false };
+  updateQuiz(ch);
+}
+
+function updateQuiz(ch) {
+  const el = document.getElementById('tab-quiz');
+  if (quizState.q >= ch.quiz.length) { showQuizScore(ch); return; }
+  const q = ch.quiz[quizState.q];
+  const pct = (quizState.q / ch.quiz.length) * 100;
+  const letters = ['A','B','C','D'];
+
+  el.innerHTML = `
+    <div class="quiz-progress"><div class="quiz-prog-fill" style="width:${pct}%"></div></div>
+    <div class="quiz-meta">
+      <span>Question ${quizState.q+1} of ${ch.quiz.length}</span>
+      <span>Score: ${quizState.score}/${quizState.q}</span>
+    </div>
+    <div class="quiz-q-card">
+      <span class="quiz-q-icon">${q.icon}</span>
+      ${q.q}
+    </div>
+    <div class="quiz-opts">
+      ${q.opts.map((opt,i) => `<button class="quiz-opt" onclick="answerQ(${i},${q.ans},this)">
+        <div class="opt-letter">${letters[i]}</div>
+        ${opt}
+      </button>`).join('')}
+    </div>
+    <div id="quiz-fb"></div>`;
+}
+
+function answerQ(chosen, correct, btn) {
+  if (quizState.answered) return;
+  quizState.answered = true;
+  const ch = CHAPTERS[currentChapter];
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.disabled = true);
+  const fb = document.getElementById('quiz-fb');
+
+  if (chosen === correct) {
+    btn.classList.add('correct');
+    quizState.score++;
+    if (fb) fb.innerHTML = `<div class="quiz-feedback fb-correct">✅ Correct! Excellent thinking!</div>`;
+  } else {
+    btn.classList.add('wrong');
+    opts[correct].classList.add('correct');
+    if (fb) fb.innerHTML = `<div class="quiz-feedback fb-wrong">❌ Incorrect. The right answer is: <strong>${ch.quiz[quizState.q].opts[correct]}</strong></div>`;
+  }
+
+  setTimeout(() => {
+    quizState.q++;
+    quizState.answered = false;
+    updateQuiz(CHAPTERS[currentChapter]);
+  }, 2000);
+}
+
+function showQuizScore(ch) {
+  const pct = (quizState.score / ch.quiz.length) * 100;
+  const stars = pct === 100 ? 3 : pct >= 60 ? 2 : pct >= 40 ? 1 : 0;
+  const emoji = pct === 100 ? '🏆' : pct >= 80 ? '🌟' : pct >= 60 ? '😊' : '📚';
+  const msg = pct === 100 ? 'Perfect Score! Outstanding!' : pct >= 80 ? 'Excellent Work!' : pct >= 60 ? 'Good Job!' : 'Keep Studying!';
+
+  if (stars === 3) { celebrate(); setCP(ch.id, { stars: 3, quizDone: true }); }
+  else setCP(ch.id, { stars, quizDone: true });
+
+  document.getElementById('tab-quiz').innerHTML = `
+    <div class="score-screen">
+      <span class="score-trophy">${emoji}</span>
+      <div class="score-num">${quizState.score}/${ch.quiz.length}</div>
+      <div class="score-msg">${msg}</div>
+      <div class="score-stars">${'⭐'.repeat(stars)}${'☆'.repeat(3-stars)}</div>
+      <button class="btn btn-amber btn-full" onclick="renderQuizTab(CHAPTERS[${currentChapter}])">🔄 Retry Quiz</button>
+      <button class="btn btn-teal btn-full" onclick="showTab('comp')">Next: Competency Questions →</button>
+      <button class="btn btn-ghost btn-full" onclick="showScreen('chapters-screen')">📚 Back to Chapters</button>
+    </div>`;
+}
+
+/* ============================================================
+   COMPETENCY TAB
+   ============================================================ */
+function renderCompTab(ch) {
+  const el = document.getElementById('tab-comp');
+  const qs = ch.competency.map((cq, i) => `
+    <div class="comp-q">
+      <div class="cq-tag">🧠 ${cq.tag}</div>
+      <div class="cq-q">${cq.q}</div>
+      <textarea placeholder="Write your answer here... (Your response is saved automatically)"
+        oninput="saveCompAnswer(${ch.id},${i},this.value)"
+        id="comp-ans-${i}">${progress[`comp_${ch.id}_${i}`]||''}</textarea>
+    </div>`).join('');
+
+  el.innerHTML = `
+    <div class="concept-card">
+      <h3>🧠 Competency-Based Questions</h3>
+      <p style="font-size:0.82rem;color:var(--muted)">These questions require reasoning, analysis, and real-world application. Write thoughtful answers.</p>
+    </div>
+    ${qs}
+    <div class="activity-card">
+      <h4>🎯 Reflection Question</h4>
+      <p>What is the most important thing you learned from this chapter? How can you apply it in your daily life?</p>
+      <textarea style="width:100%;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.1);border-radius:8px;padding:10px;color:var(--white);font-family:Georgia,serif;margin-top:8px;resize:vertical;min-height:70px;outline:none"
+        placeholder="Your reflection..."
+        oninput="saveCompAnswer(${ch.id},'ref',this.value)">${progress[`comp_${ch.id}_ref`]||''}</textarea>
+    </div>
+    <div style="text-align:center;padding:8px 0 16px">
+      <button class="btn btn-indigo" onclick="showTab('notes')">Next: My Notes →</button>
+    </div>`;
+}
+
+function saveCompAnswer(chId, idx, val) {
+  progress[`comp_${chId}_${idx}`] = val;
+  saveProgress(progress);
+}
+
+/* ============================================================
+   NOTES TAB
+   ============================================================ */
+function renderNotesTab(ch) {
+  const el = document.getElementById('tab-notes');
+  const saved = progress[`notes_${ch.id}`] || '';
+  el.innerHTML = `
+    <div class="concept-card" style="margin-bottom:12px">
+      <h3>📝 My Notes — ${ch.name}</h3>
+      <p style="font-size:0.82rem;color:var(--muted)">Write your own notes, summaries, or revision points here. They are saved automatically.</p>
+    </div>
+    <textarea class="notes-area" placeholder="Start writing your notes here...&#10;&#10;Example:&#10;• Key points from the chapter&#10;• Important dates and events&#10;• Questions to ask your teacher" 
+      oninput="saveNote(${ch.id},this.value)">${saved}</textarea>
+    <div style="display:flex;gap:8px;margin-top:10px;margin-bottom:16px">
+      <button class="btn btn-teal" style="flex:1" onclick="saveNoteNow(${ch.id})">💾 Save</button>
+      <button class="btn btn-rose" style="flex:1" onclick="clearNote(${ch.id})">🗑️ Clear</button>
+    </div>`;
+}
+
+function saveNote(chId, val) {
+  progress[`notes_${chId}`] = val;
+  saveProgress(progress);
+}
+
+function saveNoteNow(chId) {
+  const val = document.querySelector('.notes-area')?.value;
+  if (val !== undefined) saveNote(chId, val);
+  showModal(`<div style="font-size:2rem">💾</div><h3>Notes Saved!</h3><p>Your notes have been saved locally.</p><button class="btn btn-amber" style="margin-top:12px" onclick="closeModal()">OK</button>`);
+}
+
+function clearNote(chId) {
+  const el = document.querySelector('.notes-area');
+  if (el) el.value = '';
+  saveNote(chId, '');
+}
+
+/* ============================================================
+   PROGRESS SCREEN
+   ============================================================ */
+function renderProgress() {
+  const total = getTotalStars();
+  document.getElementById('prog-stars').textContent = `${total} ⭐`;
+  const done = CHAPTERS.filter(ch => getCP(ch.id).done).length;
+  const histDone = CHAPTERS.filter(ch => ch.subject==='history' && getCP(ch.id).done).length;
+  const geoDone = CHAPTERS.filter(ch => ch.subject==='geography' && getCP(ch.id).done).length;
+  const civDone = CHAPTERS.filter(ch => ch.subject==='civics' && getCP(ch.id).done).length;
+
+  const badgesWrap = document.getElementById('badges-wrap');
+  if (badgesWrap) {
+    badgesWrap.innerHTML = BADGES.map(b => {
+      let earned = false;
+      if (b.id==='first_explore') earned = done >= 1;
+      else if (b.id==='historian') earned = histDone >= 6;
+      else if (b.id==='geographer') earned = geoDone >= 6;
+      else if (b.id==='civics_hero') earned = civDone >= 6;
+      else if (b.id==='quiz_ace') earned = CHAPTERS.some(ch => getCP(ch.id).stars === 3);
+      else if (b.id==='master') earned = done >= 18;
+      return `<div class="badge-card ${earned?'earned':''}">
+        <div class="bc-icon">${b.icon}</div>
+        <div class="bc-name">${b.name}</div>
+      </div>`;
+    }).join('');
+  }
+
+  const list = document.getElementById('prog-chapter-list');
+  if (list) {
+    list.innerHTML = CHAPTERS.map(ch => {
+      const cp = getCP(ch.id);
+      const subjectDot = { history: '🔴', geography: '🟢', civics: '🔵' }[ch.subject];
+      return `<div class="ch-prog-row">
+        <span class="ch-prog-icon">${ch.icon}</span>
+        <div style="flex:1">
+          <div class="ch-prog-name">${subjectDot} ${ch.name}</div>
+          <div style="font-size:0.68rem;color:var(--muted);font-family:Courier New,monospace">${cp.done?'Read':'Not started'} · ${cp.quizDone?'Quiz done':'Quiz pending'}</div>
+        </div>
+        <div class="ch-prog-score">${'⭐'.repeat(cp.stars||0)}</div>
+      </div>`;
+    }).join('');
+  }
+}
+
+/* ============================================================
+   BOOKMARKS
+   ============================================================ */
+function renderBookmarks() {
+  const bm = getBookmarks();
+  const body = document.getElementById('bookmarks-body');
+  if (!body) return;
+  if (bm.length === 0) {
+    body.innerHTML = `<div class="bm-empty">🔖<br><br>No bookmarks yet.<br><span style="font-size:0.8rem">Tap 🔖 in any chapter to bookmark it.</span></div>`;
+    return;
+  }
+  body.innerHTML = bm.map(id => {
+    const ch = CHAPTERS.find(c => c.id === id);
+    if (!ch) return '';
+    return `<div class="bm-item" onclick="openChapter(${ch.id-1})">
+      <span style="font-size:1.5rem">${ch.icon}</span>
+      <div style="flex:1">
+        <div style="font-size:0.88rem;font-weight:700;color:var(--white)">${ch.name}</div>
+        <div style="font-size:0.7rem;color:var(--muted);font-family:Courier New,monospace;margin-top:2px">${ch.subject.toUpperCase()}</div>
+      </div>
+      <span style="color:var(--amber)">${'⭐'.repeat(getCP(id).stars||0)||'☆'}</span>
+    </div>`;
+  }).join('');
+}
+
+/* ============================================================
+   RANDOM QUIZ
+   ============================================================ */
+function startRandomQuiz() {
+  const allQ = CHAPTERS.flatMap(ch => ch.quiz.map(q => ({ ...q, chName: ch.name })));
+  const shuffled = allQ.sort(() => Math.random() - 0.5).slice(0, 10);
+  randomQuizState = { questions: shuffled, q: 0, score: 0, answered: false };
+  updateRandomQuiz();
+}
+
+function updateRandomQuiz() {
+  const el = document.getElementById('random-quiz-body');
+  if (!el) return;
+  const { questions, q } = randomQuizState;
+  if (q >= questions.length) {
+    const pct = Math.round((randomQuizState.score / questions.length) * 100);
+    el.innerHTML = `
+      <div class="score-screen">
+        <span class="score-trophy">${pct===100?'🏆':'🌟'}</span>
+        <div class="score-num">${randomQuizState.score}/${questions.length}</div>
+        <div class="score-msg">${pct>=80?'Excellent!':pct>=60?'Good Work!':'Keep Practising!'}</div>
+        <button class="btn btn-amber btn-full" onclick="startRandomQuiz()">🔄 New Random Quiz</button>
+        <button class="btn btn-ghost btn-full" onclick="showScreen('home-screen')">🏠 Home</button>
+      </div>`;
+    return;
+  }
+  const qData = questions[q];
+  const pct = (q / questions.length) * 100;
+  const letters = ['A','B','C','D'];
+  el.innerHTML = `
+    <div class="quiz-progress"><div class="quiz-prog-fill" style="width:${pct}%"></div></div>
+    <div class="quiz-meta">
+      <span>Q ${q+1} of ${questions.length}</span>
+      <span style="font-size:0.65rem;color:var(--muted)">${qData.chName}</span>
+    </div>
+    <div class="quiz-q-card">
+      <span class="quiz-q-icon">${qData.icon}</span>
+      ${qData.q}
+    </div>
+    <div class="quiz-opts">
+      ${qData.opts.map((opt,i) => `<button class="quiz-opt" onclick="answerRandom(${i},${qData.ans},this)">
+        <div class="opt-letter">${letters[i]}</div>${opt}
+      </button>`).join('')}
+    </div>
+    <div id="r-fb"></div>`;
+}
+
+function answerRandom(chosen, correct, btn) {
+  if (randomQuizState.answered) return;
+  randomQuizState.answered = true;
+  const opts = document.querySelectorAll('.quiz-opt');
+  opts.forEach(o => o.disabled = true);
+  const fb = document.getElementById('r-fb');
+  if (chosen === correct) {
+    btn.classList.add('correct');
+    randomQuizState.score++;
+    if (fb) fb.innerHTML = `<div class="quiz-feedback fb-correct">✅ Correct!</div>`;
+  } else {
+    btn.classList.add('wrong');
+    opts[correct].classList.add('correct');
+    if (fb) fb.innerHTML = `<div class="quiz-feedback fb-wrong">❌ Incorrect. Answer: <strong>${randomQuizState.questions[randomQuizState.q].opts[correct]}</strong></div>`;
+  }
+  setTimeout(() => {
+    randomQuizState.q++;
+    randomQuizState.answered = false;
+    updateRandomQuiz();
+  }, 1800);
+}
+
+/* ============================================================
+   UTILITIES
+   ============================================================ */
+function celebrate() {
+  const el = document.getElementById('celebration');
+  el.innerHTML = '';
+  const colors = ['#f59e0b','#0d9488','#e11d48','#4f46e5','#059669','#fbbf24'];
+  for (let i = 0; i < 60; i++) {
+    const c = document.createElement('div');
+    c.className = 'conf';
+    c.style.cssText = `
+      left:${Math.random()*100}%;
+      top:-10px;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      width:${4+Math.random()*8}px;
+      height:${4+Math.random()*8}px;
+      border-radius:${Math.random()>0.5?'50%':'2px'};
+      animation-duration:${1.5+Math.random()*2}s;
+      animation-delay:${Math.random()*0.5}s;
+    `;
+    el.appendChild(c);
+  }
+  setTimeout(() => el.innerHTML = '', 3500);
+}
+
+function showModal(html) {
+  document.getElementById('modal-body').innerHTML = html;
+  document.getElementById('modal-overlay').classList.add('active');
+}
+
+function closeModal() {
+  document.getElementById('modal-overlay').classList.remove('active');
+}
+
+function toggleDark() {
+  isDark = !isDark;
+  document.body.classList.toggle('light-mode', !isDark);
+  document.getElementById('dark-btn').textContent = isDark ? '☀️' : '🌙';
+}
+
+function confirmReset() {
+  showModal(`<div style="font-size:2rem">⚠️</div>
+    <h3>Reset All Progress?</h3>
+    <p>This will delete all your stars, notes, bookmarks and quiz history permanently.</p>
+    <div style="display:flex;gap:8px;margin-top:16px">
+      <button class="btn btn-rose" style="flex:1" onclick="doReset()">Reset</button>
+      <button class="btn btn-ghost" style="flex:1" onclick="closeModal()">Cancel</button>
+    </div>`);
+}
+
+function doReset() {
+  localStorage.removeItem('jkbose_cl8_sst');
+  progress = {};
+  closeModal();
+  showScreen('home-screen');
+  showModal(`<div style="font-size:2rem">✅</div><h3>Reset Complete</h3><p>All progress cleared. Start fresh!</p><button class="btn btn-amber" style="margin-top:12px" onclick="closeModal()">OK</button>`);
+}
+
+document.getElementById('modal-overlay').addEventListener('click', e => {
+  if (e.target.id === 'modal-overlay') closeModal();
+});
+
+/* ============================================================
+   PWA — INLINE SERVICE WORKER (no external file needed)
+   ============================================================ */
+if ('serviceWorker' in navigator) {
+  try {
+    const swCode = `
+      const CACHE='jkbose-cl8-v1';
+      self.addEventListener('install',()=>self.skipWaiting());
+      self.addEventListener('activate',()=>self.clients.claim());
+      self.addEventListener('fetch',e=>{
+        e.respondWith(caches.match(e.request).then(r=>r||fetch(e.request).catch(()=>new Response('Offline'))));
+      });
+    `;
+    const blob = new Blob([swCode], { type: 'application/javascript' });
+    navigator.serviceWorker.register(URL.createObjectURL(blob))
+      .then(() => console.log('✅ Offline ready'))
+      .catch(() => {});
+  } catch(e) {}
+}
+
+// PWA Manifest inline
+(function() {
+  try {
+    const m = {
+      name:"JKBOSE Class 8 Social Science App",
+      short_name:"Class 8 SST",
+      start_url:"./",
+      display:"standalone",
+      background_color:"#0f172a",
+      theme_color:"#f59e0b",
+      orientation:"portrait",
+      icons:[{ src:"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 192 192'><rect width='192' height='192' rx='32' fill='%230f172a'/><text x='96' y='130' font-size='100' text-anchor='middle'>🌍</text></svg>", sizes:"192x192", type:"image/svg+xml" }]
+    };
+    const l = document.createElement('link');
+    l.rel = 'manifest';
+    l.href = URL.createObjectURL(new Blob([JSON.stringify(m)],{type:'application/manifest+json'}));
+    document.head.appendChild(l);
+  } catch(e) {}
+})();
+
+/* Install prompt */
+let deferredPrompt;
+window.addEventListener('beforeinstallprompt', e => {
+  e.preventDefault();
+  deferredPrompt = e;
+  document.getElementById('install-banner').classList.add('show');
+});
+document.getElementById('install-btn-el').addEventListener('click', async () => {
+  if (deferredPrompt) {
+    deferredPrompt.prompt();
+    await deferredPrompt.userChoice;
+    deferredPrompt = null;
+    document.getElementById('install-banner').classList.remove('show');
+  }
+});
+
+/* ============================================================
+   INIT
+   ============================================================ */
+document.addEventListener('DOMContentLoaded', () => {
+  initStarField();
+  updateHomeStats();
+  console.log('🌍 JKBOSE Class 8 SST App — Mateen Yousuf, SED J&K');
+});
+</script>
+</body>
+</html>
